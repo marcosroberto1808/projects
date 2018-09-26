@@ -1,0 +1,14 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: sic-homolog-pv
+  namespace: sic-homolog
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # FIXME: use the right IP
+    server: k8s-nfs1
+    path: "/home/homolog-data/sic-homolog-data"

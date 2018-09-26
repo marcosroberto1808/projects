@@ -1,0 +1,97 @@
+## NS
+kind: Namespace
+apiVersion: v1
+metadata:
+   name: homolog-apps
+   labels:
+     environment: homolog
+---
+## PV
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: sic-homolog-pv
+  namespace: homolog-apps
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # FIXME: use the right IP
+    server: k8s-nfs1
+    path: "/home/data/homolog-apps/sic-homolog-data"
+---
+## PVC
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: sic-homolog-pvc
+  namespace: homolog-apps
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 50Gi
+---
+## DEPLOYMENT
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sic-homolog
+  namespace: homolog-apps
+  labels:
+    environment: homolog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sic-homolog
+  template:
+    metadata:
+      labels:
+        app: sic-homolog
+    spec:
+      containers:
+      - name: sic-homolog
+        image: docker-registry.defensoria.ce.def.br/sic-homolog:build-1
+        ports:
+        - name: http
+          containerPort: 3000
+        volumeMounts:
+        - name: sic-homolog-data
+          mountPath: "/home/AppData/ruby_log"
+          subPath: "ruby_log"
+        - name: sic-homolog-data
+          mountPath: "/home/AppData/template_central"
+          subPath: "template_central"
+        - name: sic-homolog-data
+          mountPath: "/home/AppData/repositorios"
+          subPath: "repositorios"
+      volumes:
+      - name: sic-homolog-data
+        persistentVolumeClaim:
+          claimName: sic-homolog-pvc
+---
+## SERVICE
+kind: Service
+apiVersion: v1
+metadata:
+  name: sic-homolog
+  namespace: homolog-apps
+  labels:
+    app: sic-homolog
+spec:
+  selector:
+    app: sic-homolog
+  ports:
+  - port: 3001
+    targetPort: 3000
+    protocol: TCP
+    #nodePort: 30004
+    name: http
+  type: LoadBalancer
+  externalIPs:
+  - 1.1.1.1

@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: jenkins
+  namespace: jenkins-srv
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: jenkins
+        image: jenkins/jenkins:lts
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: slaves
+          containerPort: 50000
+        volumeMounts:
+        - name: jenkins-data
+          mountPath: "/var/jenkins_home"
+          subPath: "jenkins-home"
+        # Timezone Fix
+        - name: tz-config
+          mountPath: "/etc/localtime"
+      volumes:
+      - name: jenkins-data
+        persistentVolumeClaim:
+          claimName: jenkins-pvc
+      # Timezone Fix
+      - name: tz-config
+        hostPath:
+           path: /usr/share/zoneinfo/America/Fortaleza

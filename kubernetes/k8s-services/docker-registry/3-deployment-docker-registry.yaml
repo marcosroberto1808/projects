@@ -1,0 +1,107 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: docker-registry
+  namespace: docker-registry-srv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-registry
+  template:
+    metadata:
+      labels:
+        app: docker-registry
+    spec:
+      securityContext:
+        fsGroup: 0
+      containers:
+        - name: docker-registry
+          image: registry:2.6.2
+          env:
+            - name: REGISTRY_STORAGE_DELETE_ENABLED
+              value: "true"
+            - name: REGISTRY_HTTP_SECRET
+              value: dpgeceti
+            - name: REGISTRY_HTTP_ADDR
+              value: ":5000"
+            - name: REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY
+              value: "/var/lib/registry"
+            # - name: REGISTRY_AUTH
+            #   value: "htpasswd"
+            # - name: REGISTRY_AUTH_HTPASSWD_REALM
+            #   value: "Registry Realm"
+            # - name: REGISTRY_AUTH_HTPASSWD_PATH
+            #   value: /auth/htpasswd
+            # - name: REGISTRY_HTTP_TLS_CERTIFICATE
+            #   value: /certs/fullchain.pem
+            # - name: REGISTRY_HTTP_TLS_KEY
+            #   value: /certs/privkey.pem
+          ports:
+          - name: http
+            containerPort: 5000
+          volumeMounts:
+          - name: images
+            mountPath: "/var/lib/registry"
+            subPath: "images"
+          # - name: certs
+          #   mountPath: "/certs"
+          #   subPath: "certs"
+          # - name: auth
+          #   mountPath: "/auth"
+          #   subPath: "auth"
+      volumes:
+      - name: images
+        persistentVolumeClaim:
+          claimName: docker-registry-pvc
+      # - name: certs
+      #   persistentVolumeClaim:
+      #     claimName: docker-registry-pvc
+      # - name: auth
+      #   persistentVolumeClaim:
+      #     claimName: docker-registry-pvc
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: docker-registry-manager
+  namespace: docker-registry-srv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-registry-manager
+  template:
+    metadata:
+      labels:
+        app: docker-registry-manager
+    spec:
+      securityContext:
+        fsGroup: 0
+      containers:
+        - name: docker-registry-manager
+          image: snagles/docker-registry-manager
+          env:
+            - name: MANAGER_REGISTRIES
+              value: "/home/registries.yml"
+            - name: MANAGER_LOG_LEVEL
+              value: "warn"
+            - name: MANAGER_PORT
+              value: "8080"
+          ports:
+          - name: http
+            containerPort: 8080
+          volumeMounts:
+          - name: images
+            mountPath: "/home"
+            subPath: "manager-config"
+      volumes:
+      - name: images
+        persistentVolumeClaim:
+          claimName: docker-registry-pvc
+      # - name: certs
+      #   persistentVolumeClaim:
+      #     claimName: docker-registry-pvc
+      # - name: auth
+      #   persistentVolumeClaim:
+      #     claimName: docker-registry-pvc

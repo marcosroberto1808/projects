@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: sic-homolog
+  namespace: sic-homolog
+  labels:
+    app: sic-homolog
+spec:
+  selector:
+    app: sic-homolog
+  ports:
+  - port: 3001
+    targetPort: 3000
+    protocol: TCP
+    #nodePort: 30004
+    name: http
+  type: LoadBalancer
+  externalIPs:
+  - 192.168.0.200

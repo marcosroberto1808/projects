@@ -1,0 +1,109 @@
+## NS
+kind: Namespace
+apiVersion: v1
+metadata:
+   name: k8s-services
+---
+## PV
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: nginx-pv
+  namespace: k8s-services
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # FIXME: use the right IP OR HOST
+    server: k8s-nfs1
+    path: "/home/data/k8s-services/nginx-data"
+---
+## PVC
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nginx-pvc
+  namespace: k8s-services
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 10Gi
+---
+## DEPLOYMENT
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nginx
+  namespace: k8s-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - name: http
+          containerPort: 80
+        volumeMounts:
+        - name: nginx-data
+          mountPath: "/etc/nginx/conf.d/"
+          subPath: "nginx-conf"
+        - name: nginx-data
+          mountPath: "/home/"
+          subPath: "nginx-logs"
+        - name: cfgmap1
+          mountPath: "/etc/nginx/conf.d/k8s-services.conf"
+          subPath: "k8s-services.conf"
+        - name: cfgmap2
+          mountPath: "/etc/nginx/conf.d/homolog-apps.conf"
+          subPath: "homolog-apps.conf"
+        # Timezone Fix
+        - name: tz-config
+          mountPath: "/etc/localtime"
+      volumes:
+      - name: nginx-data
+        persistentVolumeClaim:
+          claimName: nginx-pvc
+      - name: cfgmap1
+        configMap:
+          name: nginx-k8s-services-cfgmap
+      - name: cfgmap2
+        configMap:
+          name: nginx-homolog-apps-cfgmap
+      # Timezone Fix
+      - name: tz-config
+        hostPath:
+           path: /usr/share/zoneinfo/America/Fortaleza
+---
+## SERVICE
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx
+  namespace: k8s-services
+  labels:
+    app: nginx
+spec:
+  selector:
+    app: nginx
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    #nodePort: 30004
+    name: http
+  type: LoadBalancer
+  externalIPs:
+  - 192.168.0.200

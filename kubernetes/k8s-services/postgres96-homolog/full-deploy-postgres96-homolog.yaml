@@ -1,0 +1,103 @@
+## NS
+kind: Namespace
+apiVersion: v1
+metadata:
+   name: k8s-services
+---
+## PV
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: postgres96-homolog-pv
+  namespace: k8s-services
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # FIXME: use the right IP OR HOST
+    server: k8s-nfs1
+    path: "/home/data/k8s-services/postgres96-homolog-data"
+---
+## PVC
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres96-homolog-pvc
+  namespace: k8s-services
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 50Gi
+---
+## DEPLOYMENT
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: postgres96-homolog
+  namespace: k8s-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres96-homolog
+  template:
+    metadata:
+      labels:
+        app: postgres96-homolog
+    spec:
+      containers:
+      - name: postgres96-homolog
+        image: docker-registry.defensoria.ce.def.br/postgres96-homolog:build-1
+        env:
+          - name: POSTGRES_PASSWORD
+            value: "dpgeceti"
+        ports:
+        - name: pg-port
+          containerPort: 5432
+        volumeMounts:
+        - name: pg-data
+          mountPath: "/var/lib/postgresql/data"
+          subPath: "pg-data"
+        # - name: pg-conf
+        #   mountPath: "/etc/postgresql/postgresql.conf"
+        #   subPath: "postgresql.conf"
+        # Timezone Fix
+        - name: tz-config
+          mountPath: "/etc/localtime"
+      volumes:
+      - name: pg-data
+        persistentVolumeClaim:
+          claimName: postgres96-homolog-pvc
+      # - name: pg-conf
+      #   configMap:
+      #     name: pg-conf-cfgmap
+      # Timezone Fix
+      - name: tz-config
+        hostPath:
+           path: /usr/share/zoneinfo/America/Fortaleza
+---
+## SERVICE
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres96-homolog
+  namespace: k8s-services
+  labels:
+    app: postgres96-homolog
+spec:
+  selector:
+    app: postgres96-homolog
+  ports:
+  - port: 5432
+    targetPort: 5432
+    protocol: TCP
+    #nodePort: 30004
+    name: http
+  type: LoadBalancer
+  externalIPs:
+  - 192.168.0.200

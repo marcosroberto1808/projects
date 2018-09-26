@@ -1,0 +1,107 @@
+## NS
+kind: Namespace
+apiVersion: v1
+metadata:
+   name: k8s-services
+---
+## PV
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: jenkins-pv
+  namespace: k8s-services
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # FIXME: use the right IP
+    server: k8s-nfs1
+    path: "/home/data/k8s-services/jenkins-data"
+---
+## PVC
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: jenkins-pvc
+  namespace: k8s-services
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 50Gi
+---
+## DEPLOYMENT
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: jenkins
+  namespace: k8s-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: jenkins
+        image: docker-registry.defensoria.ce.def.br/jenkins:lts-docker
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: slaves
+          containerPort: 50000
+        volumeMounts:
+        - name: jenkins-data
+          mountPath: "/var/jenkins_home"
+          subPath: "jenkins-home"
+        - name: docker-sock-volume
+          mountPath: "/var/run/docker.sock"
+        # Timezone Fix
+        - name: tz-config
+          mountPath: "/etc/localtime"
+      volumes:
+      - name: jenkins-data
+        persistentVolumeClaim:
+          claimName: jenkins-pvc
+      - name: docker-sock-volume
+        hostPath:
+          path: /var/run/docker.sock
+          type: File
+      # Timezone Fix
+      - name: tz-config
+        hostPath:
+           path: /usr/share/zoneinfo/America/Fortaleza
+---
+## SERVICE
+kind: Service
+apiVersion: v1
+metadata:
+  name: jenkins
+  namespace: k8s-services
+  labels:
+    app: jenkins
+spec:
+  selector:
+    app: jenkins
+  ports:
+  - port: 8081
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  - port: 50000
+    targetPort: 50000
+    protocol: TCP
+    name: slaves
+  type: LoadBalancer
+  externalIPs:
+  - 1.1.1.1

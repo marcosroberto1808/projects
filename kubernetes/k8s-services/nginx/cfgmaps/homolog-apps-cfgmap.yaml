@@ -1,0 +1,38 @@
+## ConfigMap
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-homolog-apps-cfgmap
+  namespace: k8s-services
+data:
+  homolog-apps.conf: |
+    # sic-homolog
+    server {
+        listen 80;
+
+        proxy_connect_timeout       600;
+        proxy_send_timeout          600;
+        proxy_read_timeout          600;
+        send_timeout                600;
+
+        # the domain name it will serve for
+        server_name sic-homolog.defensoria.ce.def.br; # substitute your machine's IP address or FQDN
+        # charset     utf-8;
+
+        access_log  /home/sic-homolog.access.log main;
+        error_log /home/sic-homolog.error.log;
+
+        # max upload size
+        client_max_body_size 256M;   # adjust to taste
+
+        # Redirecionar para porta do container
+        location / {
+
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass http://sic-homolog.homolog-apps:3001;
+            proxy_read_timeout  90;
+
+        }
+    }

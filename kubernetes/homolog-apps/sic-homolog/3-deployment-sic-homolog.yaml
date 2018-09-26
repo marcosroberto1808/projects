@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sic-homolog
+  namespace: sic-homolog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sic-homolog
+  template:
+    metadata:
+      labels:
+        app: sic-homolog
+    spec:
+      containers:
+      - name: sic-homolog
+        image: docker-registry.defensoria.ce.def.br/sic-homolog-8
+        ports:
+        - name: http
+          containerPort: 3000
+        volumeMounts:
+        - name: sic-homolog-data
+          mountPath: "/home/AppData/ruby_log"
+          subPath: "ruby_log"
+        - name: sic-homolog-data
+          mountPath: "/home/AppData/template_central"
+          subPath: "template_central"
+        - name: sic-homolog-data
+          mountPath: "/home/AppData/repositorios"
+          subPath: "repositorios"
+      volumes:
+      - name: sic-homolog-data
+        persistentVolumeClaim:
+          claimName: sic-homolog-pvc

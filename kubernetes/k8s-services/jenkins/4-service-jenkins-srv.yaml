@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: jenkins
+  namespace: jenkins-srv
+  labels:
+    app: jenkins
+spec:
+  selector:
+    app: jenkins
+  ports:
+  - port: 8081
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  - port: 50000
+    targetPort: 50000
+    protocol: TCP
+    name: slaves
+  type: LoadBalancer
+  externalIPs:
+  - 1.1.1.1

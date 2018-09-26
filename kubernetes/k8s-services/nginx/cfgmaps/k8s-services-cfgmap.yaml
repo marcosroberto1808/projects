@@ -1,0 +1,98 @@
+## ConfigMap
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-k8s-services-cfgmap
+  namespace: k8s-services
+data:
+  k8s-services.conf: |
+    # docker-registry
+    server {
+        listen 80;
+
+        proxy_connect_timeout       600;
+        proxy_send_timeout          600;
+        proxy_read_timeout          600;
+        send_timeout                600;
+
+        # the domain name it will serve for
+        server_name docker-registry.defensoria.ce.def.br; # substitute your machine's IP address or FQDN
+        # charset     utf-8;
+
+        access_log  /home/docker-registry.access.log main;
+        error_log /home/docker-registry.error.log;
+
+        # max upload size
+        client_max_body_size 10000M;   # adjust to taste
+
+        #
+        location / {
+
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass http://docker-registry.k8s-services:5000;
+            proxy_read_timeout  90;
+
+        }
+    }
+    # docker-registry-manager
+    server {
+        listen 80;
+
+        proxy_connect_timeout       600;
+        proxy_send_timeout          600;
+        proxy_read_timeout          600;
+        send_timeout                600;
+
+        # the domain name it will serve for
+        server_name docker-registry-manager.defensoria.ce.def.br; # substitute your machine's IP address or FQDN
+        # charset     utf-8;
+
+        access_log  /home/docker-registry-manager.access.log main;
+        error_log /home/docker-registry-manager.error.log;
+
+        # max upload size
+        client_max_body_size 10000M;   # adjust to taste
+
+        #
+        location / {
+
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass http://docker-registry-manager.k8s-services:8080;
+            proxy_read_timeout  90;
+
+        }
+    }
+    # jenkins
+    server {
+        listen 80;
+
+        proxy_connect_timeout       600;
+        proxy_send_timeout          600;
+        proxy_read_timeout          600;
+        send_timeout                600;
+
+        # the domain name it will serve for
+        server_name jenkins.defensoria.ce.def.br; # substitute your machine's IP address or FQDN
+        # charset     utf-8;
+
+        access_log  /home/jenkins.access.log main;
+        error_log /home/jenkins.error.log;
+
+        # max upload size
+        client_max_body_size 256M;   # adjust to taste
+
+        # Redirecionar para porta do container
+        location / {
+
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass http://jenkins.k8s-services:8081;
+            proxy_read_timeout  90;
+
+        }
+    }

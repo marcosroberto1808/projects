@@ -1,0 +1,44 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: gitlab
+  namespace: gitlab-srv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      containers:
+      - name: gitlab
+        image: gitlab/gitlab-ce:latest
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        volumeMounts:
+        - name: gitlab-data
+          mountPath: "/etc/gitlab/"
+          subPath: "config"
+        - name: gitlab-data
+          mountPath: "/var/log/gitlab/"
+          subPath: "logs"
+        - name: gitlab-data
+          mountPath: "/var/opt/gitlab/"
+          subPath: "data"
+        # Timezone Fix
+        - name: tz-config
+          mountPath: "/etc/localtime"
+      volumes:
+      - name: gitlab-data
+        persistentVolumeClaim:
+          claimName: gitlab-pvc
+      # Timezone Fix
+      - name: tz-config
+        hostPath:
+           path: /usr/share/zoneinfo/America/Fortaleza

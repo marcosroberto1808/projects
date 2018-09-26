@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: gitlab
+  namespace: gitlab-srv
+  labels:
+    app: gitlab
+spec:
+  selector:
+    app: gitlab
+  ports:
+  - port: 8081
+    targetPort: 80
+    protocol: TCP
+    name: http
+  - port: 8082
+    targetPort: 443
+    protocol: TCP
+    name: https
+  type: LoadBalancer
+  externalIPs:
+  - 192.168.0.200

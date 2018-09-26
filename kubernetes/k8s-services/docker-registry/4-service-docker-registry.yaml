@@ -1,0 +1,39 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: docker-registry
+  namespace: docker-registry-srv
+  labels:
+    app: docker-registry
+spec:
+  selector:
+    app: docker-registry
+  ports:
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
+    #nodePort: 30004
+    name: http
+  type: LoadBalancer
+  externalIPs:
+  - 192.168.0.200
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: docker-registry-manager
+  namespace: docker-registry-srv
+  labels:
+    app: docker-registry-manager
+spec:
+  selector:
+    app: docker-registry-manager
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    #nodePort: 30004
+    name: http
+  type: LoadBalancer
+  externalIPs:
+  - 192.168.0.200
