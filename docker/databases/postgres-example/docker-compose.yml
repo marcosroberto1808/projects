@@ -1,16 +1,15 @@
+# docker-compose.yml by Marcos Roberto
 version: '3'
-
 services:
   sic-database:
-    # image: postgres:9.6
     ports:
       - "5499:5432"
     volumes: 
-      - ../db_dumps:/database_dumps
+      - ../database_dumps:/database_dumps
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: dpgeceti
+      POSTGRES_PASSWORD: postgres
     build:
       context: .
       dockerfile: Dockerfile 

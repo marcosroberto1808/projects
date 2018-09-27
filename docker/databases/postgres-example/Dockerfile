@@ -1,13 +1,9 @@
 # Dockerfile by Marcos Roberto
-# Variaveis de ambiente iniciais
-FROM postgres:9.4
-RUN echo "LC_ALL=pt_BR.UTF-8" >> /etc/environment-8 ; \
-echo "pt_BR.UTF-8 UTF-8" >> /etc/locale.gen ; \
-echo "LANG=pt_BR.UTF-8" > /etc/locale.conf ; \
-locale-gen pt_BR.UTF-8
-# ENVs
-ENV LANG="pt_BR.UTF-8"
-ENV LC_ALL="pt_BR.UTF-8"
-ENV LC_CTYPE="pt_BR.UTF-8"
+FROM postgres:9.6
 
+# Fix postgres locale
+RUN localedef -i pt_BR -c -f UTF-8 -A /usr/share/locale/locale.alias pt_BR.UTF-8
+ENV LANG pt_BR.utf8
+
+# Add initial SQL scripts to run on first postgres run
 ADD ./sql_scripts/. /docker-entrypoint-initdb.d
