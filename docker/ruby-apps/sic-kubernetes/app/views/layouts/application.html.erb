@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SIC</title>
+  <%= stylesheet_link_tag "bootstrap","sb-admin","tabcontent","intranet", "font-awesome","jquery-ui-1.10.3.custom","assistidos", "menu", "select2-min", "theme-bootstrap-min" %>
+  <%= javascript_include_tag "application","tabcontent" ,"jquery.mask",'jquery', 'jquery-ui','datepicker', 'bootstrap', "tabcontent", "select2.min", "data-turbolinks-track" => true %>
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <%= csrf_meta_tags %>
+</head>
+
+<body id="sic" class='sistemas'>
+<div id="wrapper" >
+  <header id="topo" class="navbar navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+      <a href="#"><img src="/assets/dpge_transparente.png" style="padding:5px 0px 0px 20px; float:left" alt="" href="index.html"/></a>
+    </div>
+    <ul class="nav navbar-right top-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-user"></i> <%= get_nome %> <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+
+
+          <li>
+            <a href="/permissao_acessos"><i class="fa fa-fw fa-gear"></i> Permissões de Acesso</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="/logout" data-method="delete"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </header>
+</div>
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 no-padding">
+        <section class="content col-md-12">
+          <h1 class="page-header">
+            SIC
+            <small> <%= @setor %></small>
+          </h1>
+          <ul class="nav navbar-nav menu">
+            <li class="dropdown">
+              <a href="#"  class="dropdown-toggle" data-toggle="dropdown">Ações <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Adicionar Assistido","/assistidos/new" %></li>
+                <li><%= link_to "Cadastrar Assinatura","/assinatura_virtuais/new" %></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administração <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Adicionar Juízo","/varas/" %></li>
+                <li><%= link_to "Adicionar Foro","/foruns/" %></li>
+                <li><%= link_to "Adicionar Origem Inquerito","/origem_inqueritos/" %></li>
+                <li><%= link_to "Adicionar Classificação Documento","/classificacao_documentos/" %></li>
+                <li><%= link_to "Adicionar Classificação Andamento","/classificacao_andamentos/" %></li>
+                <li><%= link_to "Adicionar Força Tarefa","/forca_tarefas/" %></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Quantitativo da Força Tarefa", consultar_andamentos_path %></li>
+                <li><%= link_to "Atividades Realizadas", atividades_realizadas_andamentos_path %></li>
+              </ul>
+            </li>
+            
+            <% if (can? :read, PermissaoAcesso) %>
+              <li>
+                <a href="/permissao_acessos">Permissões</a>
+              </li>
+            <% end %>
+          </ul>
+          <div class="col-md-11">
+            <% if notice %>
+              <div class="alert alert-info">
+                <p class=""><%= notice %></p>
+              </div>
+            <% end %>
+
+            <% if alert %>
+              <div class="alert alert-danger">
+                <p class=""><%= alert %></p>
+              </div>
+            <% end %>
+            <% if flash.now[:warning] %>
+              <% flash.now[:warning].each do |warning| %>
+                <div class="alert alert-warning">
+                  <p class=""><%= warning %></p>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <%= render 'layouts/header' %>
+          <div class="col-md-12">
+            <%= yield %>
+          </div>
+          <div class="clear"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Morris Charts JavaScript -->
+<%= javascript_include_tag "intranet","autocompleta_assistido", "jquery-ui","mascaras" %>
+</body>
+</html>

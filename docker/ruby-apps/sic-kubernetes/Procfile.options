@@ -1,0 +1,3 @@
+processes:
+    worker:
+        quantity: 300

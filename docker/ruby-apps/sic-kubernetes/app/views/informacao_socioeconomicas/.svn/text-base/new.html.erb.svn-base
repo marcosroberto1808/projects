@@ -1,0 +1,5 @@
+<h1>New informacao_socioeconomica</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', informacao_socioeconomicas_path %>

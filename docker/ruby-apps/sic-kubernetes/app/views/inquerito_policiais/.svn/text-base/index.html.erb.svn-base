@@ -1,0 +1,57 @@
+<h1>Listing inquerito_policiais</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assistido</th>
+      <th>Origem</th>
+      <th>Cidade</th>
+      <th>Uf</th>
+      <th>Logradouro</th>
+      <th>Numero</th>
+      <th>Complemento</th>
+      <th>Bairro</th>
+      <th>Infracao cep</th>
+      <th>Data abertura</th>
+      <th>Observacao</th>
+      <th>Instauracao</th>
+      <th>Data crime</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Cep</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @inquerito_policiais.each do |inquerito_policial| %>
+      <tr>
+        <td><%= inquerito_policial.assistido_id %></td>
+        <td><%= inquerito_policial.origem %></td>
+        <td><%= inquerito_policial.cidade %></td>
+        <td><%= inquerito_policial.uf %></td>
+        <td><%= inquerito_policial.logradouro %></td>
+        <td><%= inquerito_policial.numero %></td>
+        <td><%= inquerito_policial.complemento %></td>
+        <td><%= inquerito_policial.bairro %></td>
+        <td><%= inquerito_policial.infracao_cep %></td>
+        <td><%= inquerito_policial.data_abertura %></td>
+        <td><%= inquerito_policial.observacao %></td>
+        <td><%= inquerito_policial.instauracao %></td>
+        <td><%= inquerito_policial.data_crime %></td>
+        <td><%= inquerito_policial.latitude %></td>
+        <td><%= inquerito_policial.longitude %></td>
+        <td><%= inquerito_policial.cep %></td>
+        <td><%= link_to 'Show', inquerito_policial %></td>
+        <td><%= link_to 'Edit', edit_inquerito_policial_path(inquerito_policial) %></td>
+        <td><%= link_to 'Destroy', inquerito_policial, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Inquerito policial', new_inquerito_policial_path %>

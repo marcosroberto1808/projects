@@ -1,0 +1,1 @@
+json.extract! @informacao_socioeconomica, :id, :assistido_id, :nivel_escolaridade, :usa_drogas, :aceita_tratamento, :problema_sauda, :incluido_atividade_presidio, :trabalhava_antes_prisao, :renda_familiar, :created_at, :updated_at

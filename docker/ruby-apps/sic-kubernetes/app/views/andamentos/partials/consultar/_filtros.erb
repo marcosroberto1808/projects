@@ -1,0 +1,35 @@
+<%= form_tag(consultar_andamentos_path, {:method => :get, :id => 'filtros'}) do  %>
+  <div class="row">
+    <div class="col-xs-4">
+      <div class="form-group">
+        <%= label_tag "Data Inicial" %>
+        <%= text_field_tag :inicial, @data_inicial, id: "data_inicial", name: "data_inicial",
+                           class:"campo_data form-control" %>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="form-group">
+        <%= label_tag "Data Final"%>
+        <%= text_field_tag :final, @data_final, id: "data_final", name: "data_final",
+                           class:"campo_data form-control" %>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="form-group">
+        <label for="forca_tarefa_id">Força Tarefa</label>
+        <%= select_tag 'forca_tarefa_id', options_from_collection_for_select(@forca_tarefa, 'id', 'nome',
+                                                                             :selected => @forca_tarefa_id),
+                       prompt: 'Selecione uma opção'%>
+      </div>
+    </div>
+  </div>
+
+  <%= submit_tag "Consultar", class: "btn btn-success" %>
+
+  <div class="text-center">
+    <%= link_to 'Download', consultar_andamentos_path(:data_inicial => @data_inicial, :data_final => @data_final,
+                                                      :forca_tarefa_id => @forca_tarefa_id, :method => :get,
+                                                      :format => :pdf), type: 'button', :target => "_blank",
+                class: "btn btn-default" %>
+  </div>
+<% end %>

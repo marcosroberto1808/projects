@@ -1,0 +1,7 @@
+<p>
+  <strong>Descrição:</strong>
+  <%= @classificacao_andamento.descricao %>
+</p>
+
+<%= link_to 'Editar', edit_classificacao_andamento_path(@classificacao_andamento) %> |
+<%= link_to 'Voltar', classificacao_andamentos_path %>

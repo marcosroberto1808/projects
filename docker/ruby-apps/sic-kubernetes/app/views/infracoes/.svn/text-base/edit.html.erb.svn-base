@@ -1,0 +1,6 @@
+<h1>Editing infracao</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @infracao %> |
+<%= link_to 'Back', infracoes_path %>

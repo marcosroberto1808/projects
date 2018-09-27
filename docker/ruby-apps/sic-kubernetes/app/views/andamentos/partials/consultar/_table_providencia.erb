@@ -1,0 +1,18 @@
+<table id="providencia" class="table-ficha">
+  <thead>
+  <tr>
+    <th>Providências</th>
+    <th width="100" class="text-center">Total</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @relatorio[:providencia].each do |label, total| %>
+      <% if total > 0 %>
+        <tr data-key="<%= label %>" data-value="<%= total %>">
+          <td><%= label %></td>
+          <td class="text-center"><%= total %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

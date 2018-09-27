@@ -1,0 +1,312 @@
+<%= javascript_include_tag "jquery.mask", "mascaras", "datepicker", "processos_judiciais" %>
+<%= render 'layouts/errors', row: @processo_judicial %>
+<%= render "add_local" %>
+
+<div id="wrapper-processo" >
+  <%= form_for(@processo_judicial) do |f| %>
+    <div id="locais"></div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Assistido</label><br>
+          <div class="well well-sm"><%= @assistido.nome %></div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <% if @inqueritos != nil %>
+          <label>Inquérito</label><br>
+          <div class="form-group">
+            <%= f.select :inquerito_policial_id, options_for_select(@inqueritos.map {|i| [i.numero, i.id]}, selected: @processo_judicial["inquerito_policial_id"]), include_blank: 'Selecione uma opção' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Número <span class="text-danger">*</span></label><br>
+        <div class="form-group">
+          <%= f.text_field :numero, size: 20, class: "numero_processo" %>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <label>Vistas dos Autos</label><br>
+        <div class="form-group">
+          <%= select_tag 'vistas_autos_flag', options_for_select([['Não', 0], ['Sim', 1]], selected: @vistas_autos_flag) %>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <div id="data-vista-dos-autos" class="hidden">
+          <label>Data - Vistas dos Autos</label><br>
+          <div class="form-group">
+            <%= text_field_tag 'data_vista_dos_autos', (l @data_vistas_autos), class: 'form-control campo_data' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label>Tipo de Processo <span class="text-danger">*</span></label><br>
+        <div class="form-group">
+          <%= f.select :processo_tipo, options_for_select(@processo_tipos_choices, selected: @is_edit == nil ? '' : @processo_judicial["processo_tipo"]) %>
+        </div>
+      </div>
+
+      <% if @is_edit %>
+        <div class="col-md-6">
+          <label>Atual Juízo / Foro</label><br>
+          <div class="well well-sm">
+            <%= @processo_judicial.vara.nome %> - <%= @processo_judicial.vara.forum.nome %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <fieldset id="wrapper-varas" <% if @is_edit %>class="hidden"<% end  %>>
+      <div class="col-md-6">
+      <label><% if @is_edit %>Deseja alterar Juízo / Foro? <% else %>Juízo / Foro<% end %> <span class="text-danger">*</span></label><br>
+      <div class="form-group">
+        <div id="wrapper-vara-criminal" class="form-group only-vara-criminal hidden">
+          <%= f.select :vara_id, @varas_criminais.map {|i| ["#{i.nome} / #{i.forum.nome}", i.id]}, :include_blank => 'Selecione uma opção' %>
+        </div>
+        <div id="wrapper-vara-de-execucao-penal" class="form-group only-vara-de-execucao-penal hidden" data-vara-interior-id="<%= @vara_interior_id %>">
+          <%= f.select :vara_id, @varas_de_execucao_penal.map {|i| ["#{i.nome} / #{i.forum.nome}", i.id]}, :include_blank => 'Selecione uma opção' %>
+        </div>
+        <div id="wrapper-cidade" class="form-group hidden">
+          <label for="cidade_id">Para qual cidade?</label>
+          <%= f.select :cidade_id, options_for_select(@cidades.map {|i| [i.nome, i.id]}, selected: @processo_judicial["cidade_id"]), :include_blank => 'Selecione uma opção' %>
+        </div>
+      </div>
+      </div>
+    </fieldset>
+
+    <% if @is_edit %>
+      <div class="row">
+        <div class="col-md-12">
+          <% if @processo_judicial.localizacao_processos.length > 0 %>
+            <div class="col-md-12">
+              <label>Histórico de Locais</label><br>
+              <% @processo_judicial.localizacao_processos.each do |historico| %>
+                <div class="well well-sm">
+                  <%= "#{historico.juizo} - #{historico.foro}" %>
+                  <%= l historico.updated_at %> <br>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="only-vara-criminal hidden">
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <label>Data Fato</label><br>
+          <div class="form-group">
+            <%= f.text_field :data_fato, value: (l @processo_judicial["data_fato"] rescue ''), class: "campo_data" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <label>Rec. Denúncia</label><br>
+          <div class="form-group">
+            <%= f.text_field :data_rec_denuncia, value: (l @processo_judicial["data_rec_denuncia"] rescue ''), class: "campo_data" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <label>Publicação Sentença</label><br>
+          <div class="form-group">
+            <%= f.text_field :data_publicacao_sentenca, value: (l @processo_judicial["data_publicacao_sentenca"] rescue ''), class: "campo_data" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <label>TJ Acusação</label><br>
+          <div class="form-group">
+            <%= f.text_field :data_tj_acusacao, value: (l @processo_judicial["data_tj_acusacao"] rescue ''), class: "campo_data" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <label>Publicação Acórdão</label><br>
+          <div class="form-group">
+            <%= f.text_field :data_publicacao_acordao, value: (l @processo_judicial["data_publicacao_acordao"] rescue ''), class: "campo_data" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <label>TJ p/ Defesa</label><br>
+          <div class="form-group">
+            <%= f.text_field :data_defesa_tj, value: (l @processo_judicial["data_defesa_tj"] rescue ''), class: "campo_data" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <fieldset id="wrapper-natureza">
+          <label>Natureza <span class="text-danger">*</span></label><br>
+          <div class="form-group">
+            <%= f.select :natureza, options_for_select(@naturezas, @processo_judicial["natureza"]) %>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <%= f.label :capitulacao, "Capitulação" %><br>
+          <%= f.text_field :capitulacao, {'maxlength': 254} %>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <%= f.label :genero_delitivo, "Gênero Delitivo" %><br>
+          <%= f.select :genero_delitivo, options_for_select(@genero_choices, @processo_judicial["genero_delitivo"]) %>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <%= f.label :natureza_delitiva, "Natureza Delitiva" %><br>
+          <%= f.select :natureza_delitiva, options_for_select(@natureza_delitiva_choices, @processo_judicial["natureza_delitiva"]) %>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="only-natureza-acao-penal hidden">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <label>Foi Julgado? <span class="text-danger">*</span></label><br>
+            <%= f.select :julgado, options_for_select(@yes_or_no_choices, @is_edit == nil ? '' : @processo_judicial["julgado"] ? 1 : 0) %>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <label>Recurso? <span class="text-danger">*</span></label><br>
+            <%= f.select :recurso, options_for_select(@yes_or_no_choices, @is_edit == nil ? '' : @processo_judicial["recurso"] ? 1 : 0) %>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <label>Carta Guia? <span class="text-danger">*</span></label><br>
+            <%= f.select :carta_guia, options_for_select(@yes_or_no_choices, @is_edit == nil ? '' : @processo_judicial["carta_guia"] ? 1 : 0) %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row only-natureza-execucao-penal hidden">
+      <div class="col-xs-12 col-xs-6">
+        <div id="wrapper-tipo" class="form-group">
+          <label>Tipo</label><br>
+          <%= f.select :tipo, options_for_select(@tipos_choices, @processo_judicial["tipo"]) %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-xs-3">
+        <div class="form-group">
+          <label>Status</label><br>
+          <%= f.select :status, options_for_select(@status_choices, @is_edit == nil ? '' : @processo_judicial["status"] ? 1 : 0 ) %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-xs-3 only-tipo-definitivo hidden">
+        <div class="form-group">
+          <%= f.label :regime %><br>
+          <%= f.select :regime, options_for_select(@regime_choices, @processo_judicial["regime"]) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-3">
+        <div class="form-group">
+          <%= f.label :pena %><br>
+          <%= f.text_field :pena %>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-3">
+        <div class="form-group">
+          <label>Data da Prisão</label><br>
+          <% if @processo_judicial["data_abertura"] %>
+            <%= f.text_field :data_abertura, value: ((l @processo_judicial["data_abertura"]) rescue ''), size: 7, class: "campo_data" %>
+          <% else %>
+            <%= f.text_field :data_abertura, size: 7, class: "campo_data" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <div class="form-group">
+          <%= f.label :tempo_medida_cautelar, "Tempo de Medida Cautelar" %><br>
+          <%= f.select :tempo_medida_cautelar, options_for_select(@medida_cautelar_choices, @processo_judicial["tempo_medida_cautelar"]) %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <div class="form-group">
+          <label>Data de Arquivamento</label><br>
+          <% if @processo_judicial["data_arquivamente"] %>
+            <%= f.text_field :data_arquivamente, value: ((l @processo_judicial["data_arquivamente"]) rescue ''), size: 7, class: "campo_data" %>
+          <% else %>
+            <%= f.text_field :data_arquivamente, size: 7, class: "campo_data" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :resumo %><br>
+      <%= f.text_area :resumo, cols: 50, rows: 5 %>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-2">
+        <div class="form-group">
+          <%= f.label :data_de_alerta, "Data de Alerta" %>
+          <%= f.text_field :data_de_alerta, value: (l @processo_judicial["data_de_alerta"] rescue ''), class: "campo_data combo-defensor" %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-2">
+        <div class="form-group">
+          <%= f.label :data_progressao_de_regime, 'Progressão de Regime' %>
+          <br>
+          <%= f.text_field :data_progressao_de_regime, value: (l @processo_judicial["data_progressao_de_regime"] rescue '') ,
+                           class: "campo_data combo-defensor", size: 10 %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-2">
+        <div class="form-group">
+          <%= f.label :data_livramento_condicional, 'Livramento Condicional' %>
+          <br>
+          <%= f.text_field :data_livramento_condicional, value: (l @processo_judicial["data_livramento_condicional"] rescue ''),
+                           class: "campo_data combo-defensor", size: 10 %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <div id="defensor" class="hidden">
+          <%= f.label :defensor_cpf, "Defensor" %>
+          <%= f.select :defensor_cpf, options_for_select((get_defensores.all.map {|d| [d.pessoa_fisica_nome, d.pessoa_fisica_cpf]}),
+                                                         @processo_judicial.defensor_cpf), include_blank: 'Selecione uma opção' %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <div id="operador" class="hidden">
+          <%= f.label :operador_cpf, "Operador" %>
+          <%= f.select :operador_cpf, options_for_select((get_operadores.all.map {|d| [d.pessoa_fisica_nome, d.pessoa_fisica_cpf]}),
+                                                         @processo_judicial.operador_cpf), include_blank: 'Selecione uma opção' %>
+        </div>
+      </div>
+    </div>
+
+    <%= render 'layouts/partials/campos_obrigatorios' %>
+
+    <div class="actions">
+      <%= f.submit "Salvar", class: "btn btn-success" %>
+      <%= link_to 'Cancelar', "/assistidos/#{session["assistido_selecionado"]}", class: "btn btn-primary" %>
+
+      <% if @is_edit %>
+        <% if @processo_judicial.natureza == "Ação Penal" %>
+          <%= link_to 'Excluir Processo', {:action => :destroy_penal, :controller => 'processo_judiciais', :id => @processo_judicial.id}, data: { confirm: 'Tem certeza que deseja excluir este processo?' }, type: 'button', class: "btn btn-danger", id: "excluir" %>
+        <% else %>
+          <%= link_to 'Excluir Processo', @processo_judicial, method: :delete, data: { confirm: 'Tem certeza que deseja excluir este processo?' }, type: 'button', class: "btn btn-danger", id: "excluir" %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

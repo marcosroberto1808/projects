@@ -1,0 +1,81 @@
+<h1>Lista de Assistidos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Cpf</th>
+      <th>Estado civil</th>
+      <th>Cep</th>
+      <th>Logradouro</th>
+      <th>Numero</th>
+      <th>Complemento</th>
+      <th>Bairro</th>
+      <th>Cidade</th>
+      <th>Uf</th>
+      <th>Profissao</th>
+      <th>Nome social</th>
+      <th>Rg</th>
+      <th>Orgao emissor</th>
+      <th>Data nascimento</th>
+      <th>Nome pai</th>
+      <th>Nome mae</th>
+      <th>Nacionalidade</th>
+      <th>Telefone</th>
+      <th>Telefone dois</th>
+      <th>Telefone tres</th>
+      <th>Observacao</th>
+      <th>Contato nome</th>
+      <th>Contato telefone</th>
+      <th>Contato tipo vinculo</th>
+      <th>Contato email</th>
+      <th>Resumo</th>
+      <th>Sexo</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @assistidos.each do |assistido| %>
+      <tr>
+        <td><%= assistido.nome %></td>
+        <td><%= assistido.cpf %></td>
+        <td><%= assistido.estado_civil %></td>
+        <td><%= assistido.cep %></td>
+        <td><%= assistido.logradouro %></td>
+        <td><%= assistido.numero %></td>
+        <td><%= assistido.complemento %></td>
+        <td><%= assistido.bairro %></td>
+        <td><%= assistido.cidade %></td>
+        <td><%= assistido.uf %></td>
+        <td><%= assistido.profissao %></td>
+        <td><%= assistido.nome_social %></td>
+        <td><%= assistido.rg %></td>
+        <td><%= assistido.orgao_emissor %></td>
+        <td><%= assistido.data_nascimento %></td>
+        <td><%= assistido.nome_pai %></td>
+        <td><%= assistido.nome_mae %></td>
+        <td><%= assistido.nacionalidade %></td>
+        <td><%= assistido.telefone %></td>
+        <td><%= assistido.telefone_dois %></td>
+        <td><%= assistido.telefone_tres %></td>
+        <td><%= assistido.observacao %></td>
+        <td><%= assistido.contato_nome %></td>
+        <td><%= assistido.contato_telefone %></td>
+        <td><%= assistido.contato_tipo_vinculo %></td>
+        <td><%= assistido.contato_email %></td>
+        <td><%= assistido.resumo %></td>
+        <td><%= assistido.sexo %></td>
+        <td><%= link_to 'Show', assistido %></td>
+        <td><%= link_to 'Edit', edit_assistido_path(assistido) %></td>
+        <td><%= link_to 'Destroy', assistido, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Cadastar Perfil', new_assistido_path %>

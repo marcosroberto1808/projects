@@ -1,0 +1,10 @@
+<% if @erro_update_situacao == true %>
+    $("#erro_update_situacao").show();
+    $("#erro_update_situacao").html("<b>Data Inválida.</b>");
+<% else %>
+    $("#erro_update_situacao").hide();
+    $("#situacao_label").html("Encontra-se: <%= @situacao.situacao_estado %>");
+    $("#situacao_local_label").html("<%= @situacao.instituicao %>, <%= @situacao.cidade %>/<%= @situacao.uf %>- <%= @data %>");
+  $("#bloco_situacao").show();
+  $("#situacao_form").hide();
+<% end %>

@@ -1,0 +1,30 @@
+<h1>Documentos Anexados</h1>
+<p>Clique no nome para fazer download.</p>
+<table style="width: 100%;" class="table_documentos">
+  <tr>
+    <th>Arquivo</th>
+    <th>Tamanho</th>
+    <th>Data do Ato</th>
+    <th>Classificação Documento</th>
+  </tr>  
+  
+  <% @processo_judicial.documento.each do |documento| %>
+    <tr>
+      <td class="file_doc_info">
+        <%= form_tag "/download" do %>
+          <%= hidden_field_tag :documento, documento.id %>            
+          <%= button_to documento.nome_url, {:controller => :assistidos, :action => :download }, class: "margem_top_10" %>
+        <% end %>                
+      </td>
+      <td class="file_doc_info">
+         <%= tamanho_arquivo("public/documentos/#{documento.assistido_id}/processos/#{documento.processo_judicial_id}/#{documento.nome_url}")%>
+      </td>
+      <td style="text-align:center;">
+        <%= l documento.data %>               
+      </td>
+      <td style="text-align:center;">
+        <%= documento.classificacao_documento.descricao %>               
+      </td>
+    </tr>
+  <% end %>             
+</table>

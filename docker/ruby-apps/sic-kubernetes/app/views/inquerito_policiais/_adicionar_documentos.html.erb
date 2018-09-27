@@ -1,0 +1,42 @@
+<% if @inquerito_policial.id != nil %>
+    <h1>Documentos Anexados</h1>
+    <p>Clique no nome para fazer download.</p>
+
+    <% if @inquerito_policial.documento %>
+        <table style="width: 100%;">
+            <tr>
+              <th>Arquivo</th>
+              <th>Tamanho</th>
+              <th>Data do Ato</th>
+              <th>Classificação Documento</th>
+              <th>Deletar</th>
+            </tr>
+
+            <% @inquerito_policial.documento.each do |documento| %>
+              <tr>
+                <td style="text-align:center;">
+                  <%= documento.nome_url %>
+                </td>
+                <td style="text-align:center;">
+                   <%= number_to_human_size(File.size("#{PATH_DOCS_SIC}/documentos/#{documento.assistido_id}/inqueritos/#{documento.inquerito_policial_id}/#{documento.nome_url}"))%>
+                </td>
+                <td style="text-align:center;">
+                  <%= l documento.data %>
+                </td>
+                <td style="text-align:center;">
+                <%= documento.classificacao_documento.descricao %>
+              </td>
+                <td>
+                    <%= link_to documento, method: :delete, data: { confirm: 'Tem certeza que deseja excluir este documento?' } do %>
+                            <%= image_tag "glyphicons/glyphicons_197_remove.png" %>
+                    <% end %>
+                </td>
+              </tr>
+            <% end %>
+        </table>
+    <% end %>
+
+    <div style="float:left; margin-left: 5px;">
+      <%= link_to 'Adicionar Documento ao Inquérito', "/documentos/new?inquerito=#{@inquerito_policial.id}&tipo=4", class: "btn btn-success" %>
+    </div>
+<% end %>

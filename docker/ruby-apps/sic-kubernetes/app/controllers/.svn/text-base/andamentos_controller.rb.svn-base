@@ -1,0 +1,130 @@
+class AndamentosController < ApplicationController
+  before_action :set_andamento, only: [:show, :edit, :update, :destroy]
+  before_action :set_classificacao
+
+  respond_to :html
+
+  def index
+    redirect_to "/"
+  end
+
+  def show
+    redirect_to "/"
+  end
+
+  def new
+    @andamento = Andamento.new
+    respond_with(@andamento)
+  end
+
+  def edit
+  end
+
+  def create
+    @andamento = Andamento.new(andamento_params)
+    @arquivo =  params["andamento"]["anexo"]
+
+    if @arquivo.present?
+      @documento = Documento.new
+      @documento["assistido_id"] = session["assistido_selecionado"]
+      @documento["processo_judicial_id"] = @andamento["processo_id"]
+      @documento["data"] = @andamento["data"]
+      @documento["nome_url"] = @arquivo.original_filename
+      @classificacao_generica = ClassificacaoDocumento.find_by_descricao("Anexo de Andamento")
+      @classificacao_generica = @classificacao_generica.id if @classificacao_generica.present?
+      @documento["classificacao_documento_id"] = @classificacao_generica
+      #FILE PATH
+      @arquivo_path = ""
+      @dir_path = ""
+      @arquivo_path = "#{Rails.root}/public/documentos/#{session["assistido_selecionado"]}/processos/#{@documento["processo_judicial_id"]}/#{@documento["nome_url"]}"
+      @dir_path = "#{Rails.root}/public/documentos/#{session["assistido_selecionado"]}/processos/#{@documento["processo_judicial_id"]}/"      
+      @documento.save
+      #Checa se o diretorio existe, caso não ele cria;
+      FileUtils.mkdir_p(@dir_path) unless File.directory?(@dir_path)
+      #Salva o arquivo no diretorio
+      File.open(@arquivo_path, 'wb') do |file|
+        file.write(@arquivo.read)
+      end      
+    end
+
+    @andamento["documento_id"] = @documento.id if @documento.present?
+
+    respond_to do |format|
+      if @andamento.save
+        #raise (@andamento.classificacao_andamento).descricao.inspect
+        #Criar evento de Relaxamento de Prisão
+        if (@andamento.classificacao_andamento.descricao == "Relaxamento de Prisão")
+        @situacao = ProcessoJudicial.find(@andamento["processo_id"]).assistido.situacao.last          
+        @processo = ProcessoJudicial.find(@andamento["processo_id"])
+=begin          
+          @documento.processo_judicial.local_atuacao_processo.each do |local|
+            @situacao = ProcessoJudicial.find(params["documento"]["processo_judicial_id"]).assistido.situacao.last
+            @evento = Evento.new
+            @evento["instituicao"] = @situacao.instituicao
+            @evento["situacao"] = @situacao.situacao_estado
+            @evento["cidade"] = @situacao.cidade
+            @evento["uf"] = @situacao.uf
+            @evento["data"] = @documento.data + 30
+            @evento["descricao"] = "Notificação de 30 dias do relaxamento de prisão."
+            @evento["tipo"] = "Automático"
+            @evento["local_atuacao"] = local.lotacao_defensor_id
+            @evento["assistido_id"] = @situacao.assistido.id
+            @evento.save
+          end            
+=end
+          if @situacao.inquerito_policial.defensor_responsavel.present? and @processo.inquerito_policial.present?
+            @notificacao = Notificacao.new
+            @notificacao["assistido_id"] = @situacao.assistido.id
+            @notificacao["preso"] = true
+            @notificacao["instituicao"] = @situacao.instituicao
+            @notificacao["cidade"] = @situacao.cidade
+            @notificacao["uf"] = @situacao.uf
+            @notificacao["data"] = @situacao.data_prisao + 30
+            @notificacao["descricao"] = "Notificação de 30 dias do relaxamento de prisão."
+            @notificacao["tipo"] = "Automático"
+            @notificacao["notificado"] = @processo.inquerito_policial.defensor_responsavel
+            @notificacao["andamento_id"] = @andamento.id
+            @notificacao.save
+          end
+        end
+
+        format.html { redirect_to "/processo_judiciais/#{@andamento['processo_id']}", notice: 'Andamento adicionado com sucesso.' }
+        format.json { head :no_content }      
+      else
+        if @documento.present?
+          Documento.find(@documento.id).destroy
+        end
+
+        format.html { redirect_to :back, alert: "Classificação e Data são obrigatórios." }
+        format.json { render json: @andamento.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    @andamento.update(andamento_params)
+    respond_with(@andamento)
+  end
+
+  def destroy
+    @processo = @andamento["processo_id"]
+    if @andamento.destroy
+      redirect_to "/processo_judiciais/#{@processo}", notice: "Andamento deletado com sucesso."
+    else
+      respond_with(@andamento)
+    end
+  end
+
+  private
+    def set_classificacao
+      @classificacao = ClassificacaoAndamento.all
+    end
+
+    def set_andamento
+      @andamento = Andamento.find(params[:id])
+    end
+
+    def andamento_params
+      params.require(:andamento).permit(:classificacao_andamento_id, :documento_id, :processo_id, :resposta_necessidade, :resposta, :data_resposta, :data, :data_verificar_resposta, :resultado, :numero_processual)
+    end
+end

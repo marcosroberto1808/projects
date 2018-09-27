@@ -1,0 +1,267 @@
+<%= javascript_include_tag "menu" %>
+<%= stylesheet_link_tag "menu" %>
+
+<script>
+	$(function() {
+		$("#busca_avancada").dialog({
+			closeOnEscape:true,
+			autoOpen:false,
+			height:450,
+			position: { at: "right-19% top+53%" },
+			width: 300
+		});
+	});
+
+	$(function() {
+		$("#notificacoes").dialog({
+			closeOnEscape:true,
+			autoOpen:false,
+			height:300,
+			position: { at: "right-19% top+53%" },
+			width: 400
+		});
+	});
+
+
+	function limpar_buscar_avancada(){
+		$("#busca_nome").val('')
+		$("#busca_nome_social").val('')
+		$("#busca_sexo_Masculino").prop('checked', false);
+		$("#busca_sexo_Feminino").prop('checked', false);
+		$("#busca_nome_mae").val('')
+		$("#busca_nome_pai").val('')
+		$("#busca_profissao").val('')		
+		$("#busca_cep").val('')		
+		$("#busca_data_nascimento_inicio").val('')		
+		$("#busca_data_nascimento_fim").val('')		
+		$("#busca_cidade").val('')
+		$("#busca_uf").val('')		
+		$("#busca_logradouro").val('')		
+		$("#busca_numero").val('')		
+		$("#busca_bairro").val('')		
+		$("#busca_complemento").val('')		
+		$("#busca_telefone").val('')				
+		$("#busca_observacao").val('')
+	}
+
+	function menu_busca_avancada(){
+		$("#busca_avancada").show();
+		$("#busca_avancada").dialog("open");
+	}
+
+	function menu_notificacoes(){
+		$("#notificacoes").show();
+		$("#notificacoes").dialog("open");
+	}	
+</script>
+
+<style>
+	.button_to {
+	  display: inline;
+	}
+
+	.button_to div {
+	  display: inline;
+	}
+</style>
+
+<div class="navbar_branca" style="height:60px; background-color:#ECF8E0;">
+	<div style="float: left;">
+		<img src="/assets/logo_horizontal.png" width="65%" alt="Logo Defensoria" style=" margin-top:5px;">
+	</div>
+
+	<div class="usuario-logado" style="float:right; margin-top:15px;">				
+		<%= image_tag("img-usuario.png", :alt => "Editar Usuário") %>
+		<%= link_to current_colaborador.pessoa_fisica_nome, root_url, class: "link-usuario" %>
+		<%= link_to image_tag("btn-logout.png"), destroy_colaborador_session_path, :method => :delete %>
+	</div>	
+</div>
+
+<nav role="navigation" class="navbar navbar-default">
+
+	<div style="clear: right; float: right; margin-right: 20px; margin-top: 5px;">
+		<%= form_tag "/pesquisar_assistidos" do %>
+			<div class="input-group">
+				<span onclick="menu_busca_avancada();" class="input-group-addon" id="botao_avancado">Avançado</span>
+	      <%= text_field_tag :busca_assistido, "Procurar Assistido", class: "form-control", onclick: "this.value='';" %>
+	      <span class="input-group-btn">
+	      	<%=button_to 'Buscar', "", class: "btn btn-default" %>
+	      </span>
+	    </div>
+
+			<div id="busca_avancada" title="Opções Avançadas" style="display: none;">
+				<%= form_tag "/pesquisar_assistidos" do %>
+					<label>Nome</label><br>
+					<%= text_field_tag :busca_nome %><br>
+					
+					<label>Nome Social</label><br>
+					<%= text_field_tag :busca_nome_social %><br>
+
+					<label>Sexo</label><br>
+			    <%= radio_button_tag :busca_sexo, "Masculino" %> Masculino
+			    <%= radio_button_tag :busca_sexo, "Feminino" %> Feminino <br>
+
+					<label>Nome da Mãe</label><br>
+					<%= text_field_tag :busca_nome_mae %><br>
+
+					<label>Nome do Pai</label><br>
+					<%= text_field_tag :busca_nome_pai %><br>
+
+					<label>Profissão</label><br>
+					<%= text_field_tag :busca_profissao %><br>
+
+					<label>CEP</label><br>
+					<%= text_field_tag :busca_cep, "", size: 8, class:"cep" %> 
+					<%= image_tag "cep.png", alt: "Cep Icon", height: "20px", width:"20px" %><br>
+
+					<label>Data de Nascimento</label><br>					
+			    De <%= text_field_tag :busca_data_nascimento_inicio, "", size: 10, class: "campo_data" %> 
+			    até 
+			    <%= text_field_tag :busca_data_nascimento_fim, "", size: 10, class: "campo_data" %><br>
+
+			    <label>Cidade/UF</label><br>
+			    <%= select_tag :busca_cidade, options_for_select(listaCidades.map{|c| [c.nome]}),include_blank: true  %>/<%= select_tag :busca_uf, options_for_select(listaEstados),include_blank: true %><br>
+
+					<label>Logradouro</label><br>			    
+					<%= text_field_tag :busca_logradouro %><br>
+
+					<label>Numero/Bairro</label><br>		
+					<%= text_field_tag :busca_numero, "", size: 5 %>/<%= text_field_tag :busca_bairro %><br>
+
+					<label>Complemento</label><br>
+					<%= text_field_tag :busca_complemento %><br>
+
+					<label>Telefone</label><br>
+					<%= text_field_tag :busca_telefone %><br>
+
+					<label>Observação</label><br>
+					<%= text_field_tag :busca_observacao %> <br>
+
+					<%= hidden_field_tag :busca_avancada, "true" %> <br>					
+					<br>
+
+					<div>
+			      <div style="display: inline; float:left;">
+			      	<%= button_to 'Buscar', "", class: "btn btn-primary btn-sm" %>					
+			      </div>
+
+			      <div style="display: inline; float:left; margin-left: 10px;">
+			      	<%= text_field_tag 'Limpar', "Limpar", class: "btn btn-default btn-sm", type: "buttom", size: 5, onclick: "limpar_buscar_avancada();" %>
+			      </div>	
+
+				    <div style="clear:both;">
+				    </div>
+				  </div>      
+		    <% end %>
+			</div> 
+	  <% end %>
+	</div><!-- end form -->
+
+	<% @notificacoes = gerar_notificacoes(get_cpf) %>
+
+	<div style="margin-top:10px; margin-right:20px; float:right;" onclick="menu_notificacoes();"> 
+		<%= image_tag "glyphicons/glyphicons_333_bell.png" %>
+		<% if @notificacoes.length > 0 %>
+			<span class="label label-danger" title=""> <%= @notificacoes.length %> </span>
+		<% end %>
+	</div>
+	
+	<div id="notificacoes" title="Notificações" style="background-color:white; display:none;">
+		<% if @notificacoes.length > 0 %>
+				<% @notificacoes.each do |notificacao| %>
+					<a href="/notificacoes/<%= notificacao.id %>" style="text-decoration:none;">
+						<% if !notificacao.visto %>
+							<div id="notificacao">
+						<% else %>
+							<div id="notificacao">
+						<% end %>
+							<table style="margin-bottom: 1px; background-color: transparent;" >
+							  <tr>
+							    <td rowspan="2" width="20%">
+						    	  <% if notificacao.assistido != nil %>
+											<img class="avatar_imagem_mini" alt="Avatar" src="/<%= notificacao.assistido.imagem_url %>">										  
+										<% else %>
+								    	<img class="avatar_imagem_mini" alt="Avatar" src="/images/avatar/agendado.png">
+									  <% end %>										
+							    </td>
+							    <td style="text-align:left;" width="60%">
+							    	<div style="margin-left:10px;">
+							    		<b>
+					              <% if notificacao.assistido != nil %>
+					                <%= notificacao.assistido.nome %>
+					              <% else %>
+					                Usuário
+					              <% end %>   							    		
+					            </b>
+							    	</div>
+							    </td>
+							    
+							    <td>
+							    	<%= (Date.today - notificacao.data).to_i %> dia(s) atrás
+							    </td>
+							  </tr>
+							  <tr>
+							    <td style="text-align:left;" width="20%">
+							    	<div style="margin-left:10px;"><%= notificacao.descricao %></div>
+									</td>
+							    <td style="text-align:left;" width="20%">
+							    	<div style="margin-left:10px;">
+							    		<span class="label label-warning" title="">
+							    			<%= notificacao.tipo %>
+							    		</span>
+							    	</div>
+									</td>						
+							  </tr>
+							</table>
+						</div>
+					</a>
+					<hr style="margin-top: 10px;">
+				<% end %>
+		<% end %>
+		<div align="center"><a href="/notificacoes/new">Criar Notificação</a></div>
+		<div align="center"><a href="/notificacoes">Ver Histórico / Relatório</a></div>
+	</div>
+
+	<div class="menu">				
+		<ul id="nav">	
+			<li>
+				<a href="#">Ações</a>
+				<ul>
+					<li><%= link_to "Adicionar Assistido","/assistidos/new" %></li>
+					<li><a href="http://www.cnj.jus.br/sistema-carcerario-e-execucao-penal/calculadora-de-execucao-penal" TARGET="_blank"> Calculadora <br> de Execução Penal</a></li>
+					<li><%= link_to "Cadastrar Assinatura","/assinatura_virtuais/new" %></li>
+				</ul>
+			</li>
+
+			<li>
+				<a href="#">Administração</a>
+				<ul>
+					<li><%= link_to "Adicionar Cidade","/cidades/" %></li>
+					<li><%= link_to "Adicionar Juízo","/varas/" %></li>					
+					<li><%= link_to "Adicionar Foro","/foruns/" %></li>
+					<li><%= link_to "Adicionar Origem Inquerito","/origem_inqueritos/" %></li>
+					<li><%= link_to "Adicionar Classificação Documento","/classificacao_documentos/" %></li>	
+					<li><%= link_to "Adicionar Classificação Andamento","/classificacao_andamentos/" %></li>						
+				</ul>				
+			</li>
+
+			<% if (can? :read, PermissaoAcesso) %>
+				<li>
+					<a href="/permissao_acessos">Permissões</a>		
+				</li>
+			<% end %>
+		</ul>	
+	</div>
+
+</nav>
+
+<h5 align="center">
+	<b>
+		<font style="color:#3c763d">Sistemas de Informações Criminais</font> 
+		- Defensoria Pública
+	</b>
+</h5>
+
+<div class="only_to_print" align="center">
+	<img src="/assets/img-bem-vindo.png" width="120" height="80" alt="Logo Defensoria">
+</div>	

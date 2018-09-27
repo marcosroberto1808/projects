@@ -1,0 +1,161 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/sistema_de_informacoes_criminais/!svn/ver/395/trunk/sic/app/controllers
+END
+tipo_documentos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/tipo_documentos_controller.rb
+END
+informacao_socioeconomicas_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/informacao_socioeconomicas_controller.rb
+END
+inquerito_policiais_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/sistema_de_informacoes_criminais/!svn/ver/380/trunk/sic/app/controllers/inquerito_policiais_controller.rb
+END
+foruns_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/foruns_controller.rb
+END
+varas_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/varas_controller.rb
+END
+cfue.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/cfue.rb
+END
+colaboradores_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/colaboradores_controller.rb
+END
+documentos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/sistema_de_informacoes_criminais/!svn/ver/380/trunk/sic/app/controllers/documentos_controller.rb
+END
+processo_judiciais_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/sistema_de_informacoes_criminais/!svn/ver/385/trunk/sic/app/controllers/processo_judiciais_controller.rb
+END
+permissao_acessos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/permissao_acessos_controller.rb
+END
+eventos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/eventos_controller.rb
+END
+classificacao_documentos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/sistema_de_informacoes_criminais/!svn/ver/395/trunk/sic/app/controllers/classificacao_documentos_controller.rb
+END
+assistidos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/sistema_de_informacoes_criminais/!svn/ver/390/trunk/sic/app/controllers/assistidos_controller.rb
+END
+passwords_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/passwords_controller.rb
+END
+local_atuacao_processos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/local_atuacao_processos_controller.rb
+END
+home_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/home_controller.rb
+END
+andamentos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/sistema_de_informacoes_criminais/!svn/ver/389/trunk/sic/app/controllers/andamentos_controller.rb
+END
+cidades_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/cidades_controller.rb
+END
+classificacao_andamentos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/sistema_de_informacoes_criminais/!svn/ver/380/trunk/sic/app/controllers/classificacao_andamentos_controller.rb
+END
+situacoes_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/sistema_de_informacoes_criminais/!svn/ver/361/trunk/sic/app/controllers/situacoes_controller.rb
+END
+classificacao_anexo_inqueritos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/classificacao_anexo_inqueritos_controller.rb
+END
+assinatura_virtuais_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/assinatura_virtuais_controller.rb
+END
+application_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/application_controller.rb
+END
+origem_inqueritos_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/origem_inqueritos_controller.rb
+END
+notificacoes_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/notificacoes_controller.rb
+END
+infracoes_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/controllers/infracoes_controller.rb
+END

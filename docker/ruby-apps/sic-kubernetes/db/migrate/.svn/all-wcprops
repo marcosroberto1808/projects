@@ -1,0 +1,335 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/sistema_de_informacoes_criminais/!svn/ver/394/trunk/sic/db/migrate
+END
+20140805140239_create_classificacao_documentos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140805140239_create_classificacao_documentos.rb
+END
+20150430141640_add_campos_foro.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150430141640_add_campos_foro.rb
+END
+20140624131807_create_assistidos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140624131807_create_assistidos.rb
+END
+20140625132723_create_local_atuacao_processos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140625132723_create_local_atuacao_processos.rb
+END
+20150603221652_add_vara_id.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150603221652_add_vara_id.rb
+END
+20150417172437_create_eventos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150417172437_create_eventos.rb
+END
+20140929170204_aumenta_tamanho_descricao_em_info_socioecon.rb
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140929170204_aumenta_tamanho_descricao_em_info_socioecon.rb
+END
+20150617192301_add_andamento_notificacao.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/sistema_de_informacoes_criminais/!svn/ver/394/trunk/sic/db/migrate/20150617192301_add_andamento_notificacao.rb
+END
+20150415183326_change_assinatura_digital.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150415183326_change_assinatura_digital.rb
+END
+20140730131033_add_infracao_numero_inquerito_policial.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140730131033_add_infracao_numero_inquerito_policial.rb
+END
+20150616124154_create_classificacao_andamentos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/sistema_de_informacoes_criminais/!svn/ver/380/trunk/sic/db/migrate/20150616124154_create_classificacao_andamentos.rb
+END
+20140910125727_alter_local_atuacao_processos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140910125727_alter_local_atuacao_processos.rb
+END
+20150422193953_add_visto_notificacao.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150422193953_add_visto_notificacao.rb
+END
+20150603211804_add_for_keys.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150603211804_add_for_keys.rb
+END
+20150615184841_create_andamentos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/sistema_de_informacoes_criminais/!svn/ver/380/trunk/sic/db/migrate/20150615184841_create_andamentos.rb
+END
+20150506132921_add_campo_permissao_acesso.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150506132921_add_campo_permissao_acesso.rb
+END
+20150423133343_ad_change_campos_notificacao.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150423133343_ad_change_campos_notificacao.rb
+END
+20140716180554_add_foro_juizo_no_local_processo.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140716180554_add_foro_juizo_no_local_processo.rb
+END
+20140625133230_create_infracoes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140625133230_create_infracoes.rb
+END
+20150422175509_add_tipo_notificacao.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150422175509_add_tipo_notificacao.rb
+END
+20140702143215_add_url_image_assistido.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140702143215_add_url_image_assistido.rb
+END
+20150615161113_add_cidade_crime.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/sistema_de_informacoes_criminais/!svn/ver/380/trunk/sic/db/migrate/20150615161113_add_cidade_crime.rb
+END
+20150603204943_add_campos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150603204943_add_campos.rb
+END
+20140625132540_create_tipo_documentos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140625132540_create_tipo_documentos.rb
+END
+20140805142848_add_classificacao_documentono_documento.rb
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140805142848_add_classificacao_documentono_documento.rb
+END
+20140910125131_create_localizacao_processos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140910125131_create_localizacao_processos.rb
+END
+20150417174256_add_campo_evento.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150417174256_add_campo_evento.rb
+END
+20150528194238_add_keys.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/sistema_de_informacoes_criminais/!svn/ver/363/trunk/sic/db/migrate/20150528194238_add_keys.rb
+END
+20140625133638_create_notificacoes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140625133638_create_notificacoes.rb
+END
+20140711170934_create_varas.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140711170934_create_varas.rb
+END
+20140808134427_add_data_resposta_e_data_verificar_resposta_e_resultado.rb
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140808134427_add_data_resposta_e_data_verificar_resposta_e_resultado.rb
+END
+20150603144624_key_tipo_docu_classi_docu.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150603144624_key_tipo_docu_classi_docu.rb
+END
+20140625132446_create_processo_judiciais.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140625132446_create_processo_judiciais.rb
+END
+20140703162308_add_estado_processo_judicial.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140703162308_add_estado_processo_judicial.rb
+END
+20150610132202_add_remocoes_banco.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/sistema_de_informacoes_criminais/!svn/ver/363/trunk/sic/db/migrate/20150610132202_add_remocoes_banco.rb
+END
+20150602180928_add_tipo_documento_classificacao.rb
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150602180928_add_tipo_documento_classificacao.rb
+END
+20150616130650_remove_campos_documento.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/sistema_de_informacoes_criminais/!svn/ver/380/trunk/sic/db/migrate/20150616130650_remove_campos_documento.rb
+END
+20140905121330_create_situacoes.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140905121330_create_situacoes.rb
+END
+20140715172749_add_inquerito_id.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140715172749_add_inquerito_id.rb
+END
+20150609131414_add_n_anexo_responsavel.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/sistema_de_informacoes_criminais/!svn/ver/361/trunk/sic/db/migrate/20150609131414_add_n_anexo_responsavel.rb
+END
+20140926145355_add_campos_descricao_em_informacoes_socioeconomicas.rb
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140926145355_add_campos_descricao_em_informacoes_socioeconomicas.rb
+END
+20150430191430_create_origem_inqueritos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150430191430_create_origem_inqueritos.rb
+END
+20150609165324_add_numero_inquerito.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/sistema_de_informacoes_criminais/!svn/ver/361/trunk/sic/db/migrate/20150609165324_add_numero_inquerito.rb
+END
+20140625132031_create_inquerito_policiais.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140625132031_create_inquerito_policiais.rb
+END
+20140625132844_create_assinatura_virtuais.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140625132844_create_assinatura_virtuais.rb
+END
+20150609172528_add_numero_processual.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/sistema_de_informacoes_criminais/!svn/ver/361/trunk/sic/db/migrate/20150609172528_add_numero_processual.rb
+END
+20140730130718_change_infracao_nomes_campos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140730130718_change_infracao_nomes_campos.rb
+END
+20150417185621_add_notificado.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150417185621_add_notificado.rb
+END
+20150430140200_create_cidades.rb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150430140200_create_cidades.rb
+END
+20150610173527_remove_forum_id_processo.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/sistema_de_informacoes_criminais/!svn/ver/363/trunk/sic/db/migrate/20150610173527_remove_forum_id_processo.rb
+END
+20140625131344_create_documentos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140625131344_create_documentos.rb
+END
+20140711170909_create_foruns.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140711170909_create_foruns.rb
+END
+20150423133333_add_campos_evento.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150423133333_add_campos_evento.rb
+END
+20140625133919_create_informacao_socioeconomicas.rb
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20140625133919_create_informacao_socioeconomicas.rb
+END
+20150505155425_create_permissao_acessos.rb
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/db/migrate/20150505155425_create_permissao_acessos.rb
+END

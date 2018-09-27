@@ -1,0 +1,1 @@
+json.extract! @inquerito_policial, :id, :assistido_id, :origem, :cidade, :uf, :logradouro, :numero, :complemento, :bairro, :infracao_cep, :data_abertura, :observacao, :instauracao, :data_crime, :latitude, :longitude, :cep, :created_at, :updated_at

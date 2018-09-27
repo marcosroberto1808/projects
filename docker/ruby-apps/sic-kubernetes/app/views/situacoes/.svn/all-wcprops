@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/situacoes
+END
+edit.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/situacoes/edit.html.erb
+END
+index.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/situacoes/index.html.erb
+END
+new.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/situacoes/new.html.erb
+END
+show.json.jbuilder
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/situacoes/show.json.jbuilder
+END
+show.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/situacoes/show.html.erb
+END
+_form.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/situacoes/_form.html.erb
+END
+index.json.jbuilder
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/situacoes/index.json.jbuilder
+END

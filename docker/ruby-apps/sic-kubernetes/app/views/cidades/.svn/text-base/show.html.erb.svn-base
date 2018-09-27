@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @cidade.nome %>
+</p>
+
+<p>
+  <strong>UF:</strong>
+  <%= @cidade.uf %>
+</p>
+
+<%= link_to 'Editar', edit_cidade_path(@cidade) %> |
+<%= link_to 'Voltar', cidades_path %>

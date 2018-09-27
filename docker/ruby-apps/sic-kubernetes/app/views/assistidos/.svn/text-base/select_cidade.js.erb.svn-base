@@ -1,0 +1,2 @@
+$("#uf_cidade").html("<%= j render 'select_cidade' %>");
+

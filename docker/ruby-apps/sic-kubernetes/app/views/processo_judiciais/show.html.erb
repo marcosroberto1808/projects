@@ -1,0 +1,179 @@
+<%= render "vistas_dos_autos" %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Processo Judicial</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <% if @processo_judicial.inquerito_policial %>
+        <div class="col-md-3">
+          <div class="field">
+            <label>Inquérito:</label>
+            <%= @processo_judicial.inquerito_policial.numero %><br>
+          </div>
+        </div>
+      <% end %>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Assistido:</label>
+          <%= @assistido.nome %><br>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Numero:</label>
+          <%= @processo_judicial.numero %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Vistas dos autos:</label>
+          <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-vista-autos">
+            <i class="fa fa-eye"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="field">
+          <label>Juizo:</label>
+          <%= @processo_judicial.vara.nome %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Cidade:</label>
+          <%= @processo_judicial.cidade %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>UF:</label>
+          <%= @processo_judicial.estado %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="field">
+          <label>Foro:</label>
+          <%= @processo_judicial.vara.forum.nome %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Natureza:</label>
+          <%= @processo_judicial.natureza %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Data da Prisão:</label>
+          <% if @processo_judicial.data_abertura.present? %>
+            <%= l @processo_judicial.data_abertura %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="field">
+          <label>Data de Arquivamento:</label>
+          <%= (l @processo_judicial.data_arquivamente) if @processo_judicial.data_arquivamente %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Resumo:</label>
+          <%= @processo_judicial.resumo %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Julgado:</label>
+          <%= @processo_judicial.present? and @processo_judicial.julgado ? 'Sim' : 'Não' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="field">
+          <label>Recurso:</label>
+          <%= @processo_judicial.present? and @processo_judicial.recurso ? 'Sim' : 'Não' %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Carta Guia:</label>
+          <%= @processo_judicial.present? and @processo_judicial.carta_guia ? 'Sim' : 'Não' %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Status:</label>
+          <%= @processo_judicial.present? and @processo_judicial.status ? 'Sim' : 'Não' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="field">
+          <label>Tipo:</label>
+          <%= @processo_judicial.tipo %>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="field">
+          <label>Progressão de Regime:</label>
+          <%= (l @processo_judicial.data_progressao_de_regime rescue '' ) %>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="field">
+          <label>Livramento Condicional:</label>
+          <%= (l @processo_judicial.data_livramento_condicional rescue '' ) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="field">
+          <label>Locais de Atuação:</label>
+          <% @processo_judicial.local_atuacao_processo.each do |local| %>
+            <% if ([local.lotacao_defensor]).any? %>
+              <span class="label label-danger">
+                <%= local.lotacao_defensor.descricao_local %>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <%= link_to 'Voltar', "/assistidos/#{session["assistido_selecionado"]}", class: "btn btn-danger" %>
+        <%= link_to 'Editar Processo', edit_processo_judicial_path(@processo_judicial), class: "btn btn-primary" %>
+        <%= link_to 'Adicionar Andamento', new_andamento_url(processo: @processo_judicial.id, visualizar: "true"),
+                    class: "btn btn-primary" %>
+      </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+      <% if @andamentos.present? %>
+        <div class="col-md-12">
+          <%= render "andamentos_anexados" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

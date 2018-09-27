@@ -1,0 +1,53 @@
+<h1>Listing processo_judiciais</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assistido</th>
+      <th>Numero</th>
+      <th>Juizo</th>
+      <th>Cidade</th>
+      <th>Foro</th>
+      <th>Natureza</th>
+      <th>Data abertura</th>
+      <th>Data arquivamente</th>
+      <th>Resumo</th>
+      <th>Julgado</th>
+      <th>Recurso</th>
+      <th>Carta guia</th>
+      <th>Tipo</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @processo_judiciais.each do |processo_judicial| %>
+      <tr>
+        <td><%= processo_judicial.assistido_id %></td>
+        <td><%= processo_judicial.numero %></td>
+        <td><%= processo_judicial.juizo %></td>
+        <td><%= processo_judicial.cidade %></td>
+        <td><%= processo_judicial.foro %></td>
+        <td><%= processo_judicial.natureza %></td>
+        <td><%= processo_judicial.data_abertura %></td>
+        <td><%= processo_judicial.data_arquivamente %></td>
+        <td><%= processo_judicial.resumo %></td>
+        <td><%= processo_judicial.julgado %></td>
+        <td><%= processo_judicial.recurso %></td>
+        <td><%= processo_judicial.carta_guia %></td>
+        <td><%= processo_judicial.tipo %></td>
+        <td><%= processo_judicial.status %></td>
+        <td><%= link_to 'Show', processo_judicial %></td>
+        <td><%= link_to 'Edit', edit_processo_judicial_path(processo_judicial) %></td>
+        <td><%= link_to 'Destroy', processo_judicial, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Processo judicial', new_processo_judicial_path %>

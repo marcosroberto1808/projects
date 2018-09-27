@@ -1,0 +1,5 @@
+<h1>Nova Classificação de Anexos de Inquerito</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Voltar', classificacao_anexo_inqueritos_path %>

@@ -1,0 +1,2 @@
+<h1>Editar Inquérito Policial</h1>
+<%= render 'form' %>

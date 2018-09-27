@@ -1,0 +1,17 @@
+<%= javascript_include_tag "jquery.mask", "mascaras" %>
+
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= f.hidden_field :reset_password_token %>
+
+  <div class="div_campos">
+    <label style="margin-right: 32px;"> Confirmar CPF: </label>
+    <%= text_field_tag "cpf", "", size: "14", class: "cpf" %><br>
+  	<%= f.label :password, "Nova Senha", class: :new_pass_label %>
+  	<%= f.password_field :password, :autofocus => true, class: :new_pass_field %>
+  	<%= f.label :password_confirmation, "Confirme Nova Senha" %>
+  	<%= f.password_field :password_confirmation, class: :new_pass_confirmation_field %>
+  	<%= f.hidden_field :ativo, value: true %>
+  </div>
+
+  <div><%= f.submit "Salvar", class: :btn %></div>
+<% end %>

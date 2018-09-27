@@ -1,0 +1,131 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/sistema_de_informacoes_criminais/!svn/ver/392/trunk/sic/app/helpers
+END
+documentos_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/documentos_helper.rb
+END
+processo_judiciais_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/processo_judiciais_helper.rb
+END
+permissao_acessos_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/permissao_acessos_helper.rb
+END
+eventos_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/eventos_helper.rb
+END
+classificacao_documentos_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/classificacao_documentos_helper.rb
+END
+assistidos_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/assistidos_helper.rb
+END
+local_atuacao_processos_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/local_atuacao_processos_helper.rb
+END
+welcome_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/welcome_helper.rb
+END
+cidades_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/cidades_helper.rb
+END
+situacoes_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/situacoes_helper.rb
+END
+classificacao_anexo_inqueritos_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/classificacao_anexo_inqueritos_helper.rb
+END
+assinatura_virtuais_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/assinatura_virtuais_helper.rb
+END
+application_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/sistema_de_informacoes_criminais/!svn/ver/392/trunk/sic/app/helpers/application_helper.rb
+END
+origem_inqueritos_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/origem_inqueritos_helper.rb
+END
+notificacoes_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/notificacoes_helper.rb
+END
+infracoes_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/infracoes_helper.rb
+END
+inquerito_policiais_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/inquerito_policiais_helper.rb
+END
+informacao_socioeconomicas_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/informacao_socioeconomicas_helper.rb
+END
+tipo_documentos_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/tipo_documentos_helper.rb
+END
+foruns_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/foruns_helper.rb
+END
+varas_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/helpers/varas_helper.rb
+END

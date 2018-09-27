@@ -1,0 +1,16 @@
+class Vara < ActiveRecord::Base
+  belongs_to :forum
+  has_many	 :processo_judicial
+  validates_presence_of :nome, message: ": O campo tem que ser preenchido."
+  validates_presence_of :forum_id, message: ": O campo tem que ser preenchido." 
+
+
+  before_destroy :check_for_processos
+
+  def check_for_processos
+    if processo_judicial.count > 0
+      errors.add(:base, "Existem Processos, atrelados a este Juízo. Deleção não realizada.")
+      return false
+    end
+  end     
+end

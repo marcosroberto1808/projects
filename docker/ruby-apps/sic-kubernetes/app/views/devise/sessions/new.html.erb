@@ -1,0 +1,23 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="div_campos">
+      <%= f.label :cpf, class: :cpf_label %>
+      <%= f.text_field :pessoa_fisica_cpf, autofocus: :true, class: :cpf %>
+  </div>
+
+  <div class="div_campos">
+      <%= f.label :senha, class: :senha_label %>
+      <%= f.password_field :password %>
+  </div>
+
+  <div class=resetar_senha">
+    <%= link_to "Esqueceu sua senha?", new_password_path('colaborador'), class: "login-link" %>
+  </div>
+
+  <div><%= f.hidden_field :ativo, value: TRUE %></div>
+
+  <div>
+      <%= f.submit "Entrar", class: :btn, onclick: "$('#colaborador_pessoa_fisica_cpf').val($('#colaborador_pessoa_fisica_cpf').val().replace(/\\D/g,''))" %>
+  </div>
+
+<% end %>
+<%= javascript_include_tag "jquery.mask", "mascaras" %>

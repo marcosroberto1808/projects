@@ -1,0 +1,42 @@
+<h1>Andamentos</h1>
+
+<table class="table table-hover">
+  <tr>
+    <th>Data</th>       
+    <th>Classificação</th>     
+    <th>Numero Processo</th>
+    <th>Necessita Resposta</th>
+    <th>Data Verificar Resposta</th>    
+    <th>Data Resposta</th>
+    <th>Resultado</th>
+    <th>Anexo</th>    
+    <th></th>
+  </tr>  
+  
+  <% @andamentos.each do |andamento| %>
+    <tr>
+      <td><%= (l andamento.data if andamento.data) %></td>     
+      <td><%= andamento.classificacao_andamento.descricao %></td>    
+      <td><%= andamento.numero_processual %></td>        
+      <td><%= check_box_tag "", "", andamento.resposta_necessidade, disabled: true %></td>
+      <td><%= (l andamento.data_verificar_resposta if andamento.data_verificar_resposta) %></td>
+      <td><%= (l andamento.data_resposta if andamento.data_resposta) %></td>
+      <td><%= andamento.resultado %></td>
+      <td>
+        <% if andamento.documento_id.present? %>
+          <%= form_tag "/download" do %>
+            <%= hidden_field_tag :documento, andamento.documento_id %>            
+            <%= button_to "Download", {:controller => :assistidos, :action => :download }, class: "margem_top_10" %>
+          <% end %>
+        <% end %>                
+      </td>    
+      <td>
+        <%= link_to 'Deletar', andamento, method: :delete, data: { confirm: 'Tem Certeza?' } %>
+      </td>
+    <tr>
+
+    <tr>
+      <td colspan="9" style="text-align:left; padding-left:50px;  border-top: 0"><b>Resposta:</b> <%= andamento.resposta %></td>
+    </tr>
+  <% end %>             
+</table>

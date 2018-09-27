@@ -1,0 +1,41 @@
+<% if @vara.present? and @vara.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@vara.errors.count, "erro(s)") %> imperdiram esta vara de ser salva:</h2>
+
+    <ul>
+    <% @vara.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1>Lista de Juízos</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Foro</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @varas.each do |vara| %>
+      <tr>
+        <td><%= vara.nome %></td>
+        <td><%= vara.forum.nome %></td>
+        <td><%= link_to 'Exibir', vara %></td>
+        <td><%= link_to 'Editar', edit_vara_path(vara) %></td>
+        <td><%= link_to 'Deletar', vara, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Novo Juízo', new_vara_path %>

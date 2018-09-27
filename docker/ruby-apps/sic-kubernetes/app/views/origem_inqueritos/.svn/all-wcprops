@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/origem_inqueritos
+END
+edit.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/origem_inqueritos/edit.html.erb
+END
+index.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/origem_inqueritos/index.html.erb
+END
+new.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/origem_inqueritos/new.html.erb
+END
+show.json.jbuilder
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/origem_inqueritos/show.json.jbuilder
+END
+show.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/origem_inqueritos/show.html.erb
+END
+_form.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/origem_inqueritos/_form.html.erb
+END
+index.json.jbuilder
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/origem_inqueritos/index.json.jbuilder
+END

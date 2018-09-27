@@ -1,0 +1,2 @@
+module InfracoesHelper
+end

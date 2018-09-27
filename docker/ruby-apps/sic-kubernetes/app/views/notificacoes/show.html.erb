@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Notificação</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-6">
+      <strong>Assistido:</strong>
+      <%= link_to @notificacao.assistido_nome, assistido_path(@notificacao.assistido_id) %>
+    </div>
+    <div class="col-md-6">
+      <strong>Instituição:</strong>
+      <%= @notificacao.instituicao %>
+    </div>
+    <div class="col-md-6">
+      <strong>Cidade:</strong>
+      <%= @notificacao.cidade %>
+    </div>
+    <div class="col-md-6">
+      <strong>UF:</strong>
+      <%= @notificacao.uf %>
+    </div>
+    <div class="col-md-6">
+      <strong>Data:</strong>
+      <%= l @notificacao.data %>
+    </div>
+    <div class="col-md-6">
+      <strong>Descrição:</strong>
+      <%= @notificacao.descricao %>
+    </div>
+    <% if @notificacao.andamento_id.present? or @notificacao.processo_id.present?%>
+    <div class="col-md-6">
+      <strong>Origem:</strong>
+      <% if @notificacao.andamento_id.present? %>
+        <%= link_to 'Visualizar Andamento', andamento_path(@notificacao.andamento_id) %>
+      <% else %>
+        <%= link_to 'Visualizar Processo', processo_judicial_path(@notificacao.processo_id) %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>
+<%= link_to 'Voltar', notificacao_path, :class=> "btn btn-primary" %>

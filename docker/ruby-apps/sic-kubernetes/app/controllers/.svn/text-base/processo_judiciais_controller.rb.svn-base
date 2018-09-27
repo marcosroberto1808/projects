@@ -1,0 +1,149 @@
+class ProcessoJudiciaisController < ApplicationController
+  before_action :set_processo_judicial, only: [:show, :edit, :update, :destroy]
+
+  def index
+    redirect_to root_url
+  end
+
+  def add_infracao_new
+    @infracao = Infracao.new
+    respond_to do |format|
+      @infracao["descricao_codigo"] = params["infracao_codigo"]
+      @infracao["descricao_nome"] = params["infracao_nome"]
+      format.js        
+    end
+  end
+
+  def add_local
+    @local_atuacao_processo = if params[:id] 
+      LocalAtuacaoProcesso.new(processo_judicial_id: params[:id], lotacao_defensor_id: params[:lcl_atc_acompanhar])
+    else
+      LocalAtuacaoProcesso.new(processo_judicial_id: nil, lotacao_defensor_id: params[:lcl_atc_acompanhar])
+    end
+
+    respond_to do |format|
+      format.js        
+    end
+  end
+
+  def show
+    @assistido = Assistido.find(session["assistido_selecionado"])
+    @andamentos = @processo_judicial.andamento.order("data desc")
+  end
+  
+  def new
+    @assistido = Assistido.find(session["assistido_selecionado"])    
+    @processo_judicial = ProcessoJudicial.new    
+    @processo_judicial["cidade"] = "Fortaleza"
+    @inqueritos = InqueritoPolicial.where(assistido_id: session["assistido_selecionado"])
+    @foruns = Forum.all
+    @varas = Vara.all
+    @lotacoes = LotacaoDefensor.get_lotacao_defensor(current_colaborador.pessoa_fisica_cpf)
+  end
+
+  def edit
+    @assistido = Assistido.find(session["assistido_selecionado"])
+    @inqueritos = InqueritoPolicial.where(assistido_id: session["assistido_selecionado"])
+    @lotacoes = LotacaoDefensor.get_lotacao_defensor(current_colaborador.pessoa_fisica_cpf)    
+    @foruns = Forum.all
+    @varas = Vara.all       
+  end
+
+  def create
+    @processo_judicial = ProcessoJudicial.new(processo_judicial_params)
+    @processo_judicial["assistido_id"] = session["assistido_selecionado"]
+
+    #PREENCHENDO PARAMS QUE NÃO ESTÃO NO FORM
+    @juizo = Vara.find(params["processo_judicial"]["vara_id"])
+    @processo_judicial["cidade"] = @juizo.forum.cidade_nome
+    @processo_judicial["estado"] = @juizo.forum.uf
+
+    respond_to do |format|
+      if @processo_judicial.save
+        salva_locais if params[:locais]
+        format.html { redirect_to "/assistidos/#{session["assistido_selecionado"]}", notice: 'Processo Judicial criado com sucesso.' }
+        format.json { render action: 'show', status: :created, location: @processo_judicial }
+      else
+        @assistido = Assistido.find(session["assistido_selecionado"])    
+        @inqueritos = InqueritoPolicial.where(assistido_id: session["assistido_selecionado"])
+        @lotacoes = LotacaoDefensor.get_lotacao_defensor(current_colaborador.pessoa_fisica_cpf)        
+        @foruns = Forum.all
+        @varas = Vara.all           
+
+        format.html { render action: 'new' }
+        format.json { render json: @processo_judicial.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    if @processo_judicial["vara_id"].to_s != params["processo_judicial"]["vara_id"].to_s
+      @historico_local = LocalizacaoProcesso.new
+      @juizo = Vara.find(params["processo_judicial"]["vara_id"])
+      @historico_local["processo_judicial_id"] = @processo_judicial["id"]
+      @historico_local["foro"] = @juizo.forum.nome
+      @historico_local["juizo"] = @juizo.nome
+    end
+
+    respond_to do |format|
+      if @processo_judicial.update(processo_judicial_params)
+        #EDITANDO PARAMS QUE NÃO ESTÃO NO FORM
+        @juizo = Vara.find(params["processo_judicial"]["vara_id"])
+        @processo_judicial.update_attributes(cidade: @juizo.forum.cidade_nome)
+        @processo_judicial.update_attributes(estado: @juizo.forum.uf)
+
+        salva_locais if params[:locais]
+        @historico_local.save unless @historico_local.nil?
+        
+        format.html { redirect_to "/assistidos/#{session["assistido_selecionado"]}", notice: 'Processo Judicial editado com sucesso.' }        
+        format.json { head :no_content }
+      else
+        @assistido = Assistido.find(session["assistido_selecionado"])        
+        @inqueritos = InqueritoPolicial.where(assistido_id: session["assistido_selecionado"])
+        @foruns = Forum.all
+        @varas = Vara.all           
+        format.html { render action: 'edit' }
+        format.json { render json: @processo_judicial.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def salva_locais
+    params[:locais].each  do |local| 
+      local_atuacao_processo = LocalAtuacaoProcesso.new(processo_judicial_id: @processo_judicial.id, lotacao_defensor_id: local)
+
+      local_atuacao_processo.save unless local_atuacao_processo.acompanhamento_existe?
+    end
+  end
+
+  def destroy
+    @processo_judicial.destroy
+    respond_to do |format|
+      format.html { redirect_to "/assistidos/#{session["assistido_selecionado"]}" }
+      format.json { head :no_content }
+    end
+  end
+
+  def destroy_penal
+    @processo_judicial.destroy
+    respond_to do |format|
+      format.html { redirect_to "/assistidos/#{session["assistido_selecionado"]}" }
+      format.json { head :no_content }
+    end
+  end  
+
+  def get_varas
+    @varas = Vara.all  
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_processo_judicial
+      @processo_judicial = ProcessoJudicial.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def processo_judicial_params
+      params.require(:processo_judicial).permit(:assistido_id, :numero, :cidade, :forum_id, :natureza, :data_abertura, :data_arquivamente, :resumo, :julgado, :recurso, :carta_guia, :tipo, :status, :updated_at, :created_at, :estado, :inquerito_policial_id, :vara_id)
+    end
+end

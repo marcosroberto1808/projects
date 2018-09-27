@@ -1,0 +1,33 @@
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Alterar Senha
+        </h3>
+    </div>
+    <div class="panel-content">
+        <%= form_for(@user, :url => { :action => "update_password" } ) do |f| %>
+            <%= devise_error_messages! %>
+
+            <div class="field">
+                <%= f.label :senha_atual %><br />
+                <%= f.password_field :current_password %>
+            </div>
+
+            <div class="field">
+                <%= f.label :nova_senha %><br />
+                <%= f.password_field :password, :autocomplete => "off" %>
+            </div>
+
+            <div class="field">
+                <%= f.label :confirmar_nova_senha %><br />
+                <%= f.password_field :password_confirmation, :autocomplete => "off" %>
+            </div>
+
+            <div class="actions">
+                <%= f.submit "Salvar", class: :btn %>
+            </div>
+        <% end %>
+
+        <%= link_to image_tag("seta-voltar.png", :alt => "Voltar", size: "25"), :back %>
+    </div>
+</div>

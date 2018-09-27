@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Preso:</strong>
+  <%= @situacao.preso %>
+</p>
+
+<p>
+  <strong>Instituicao:</strong>
+  <%= @situacao.instituicao %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @situacao.cidade %>
+</p>
+
+<p>
+  <strong>Uf:</strong>
+  <%= @situacao.uf %>
+</p>
+
+<p>
+  <strong>Data prisao:</strong>
+  <%= @situacao.data_prisao %>
+</p>
+
+<p>
+  <strong>Motivo:</strong>
+  <%= @situacao.motivo %>
+</p>
+
+<p>
+  <strong>Assistido:</strong>
+  <%= @situacao.assistido %>
+</p>
+
+<%= link_to 'Edit', edit_situacao_path(@situacao) %> |
+<%= link_to 'Back', situacoes_path %>

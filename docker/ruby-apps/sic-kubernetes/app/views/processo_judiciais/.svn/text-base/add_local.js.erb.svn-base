@@ -1,0 +1,2 @@
+$("#locais").append('<span class="label label-danger" title="<%= @local_atuacao_processo.lotacao_defensor.descricao_local %>"><%= @local_atuacao_processo.lotacao_defensor.descricao_local %></span>');
+$("#locais").append('<%= hidden_field_tag :locais, (@local_atuacao_processo.lotacao_defensor.id), name: "locais[]" %>');

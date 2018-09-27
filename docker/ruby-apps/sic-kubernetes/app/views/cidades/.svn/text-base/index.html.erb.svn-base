@@ -1,0 +1,41 @@
+<% if @cidade.present? and @cidade.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@cidade.errors.count, "erro(s)") %> impediram esta ação:</h2>
+
+    <ul>
+    <% @cidade.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1>Lista de Cidades</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>UF</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cidades.each do |cidade| %>
+      <tr>
+        <td><%= cidade.nome %></td>
+        <td><%= cidade.uf %></td>
+        <td><%= link_to 'Exibir', cidade %></td>
+        <td><%= link_to 'Editar', edit_cidade_path(cidade) %></td>
+        <td><%= link_to 'Deletar', cidade, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nova Cidade', new_cidade_path %>

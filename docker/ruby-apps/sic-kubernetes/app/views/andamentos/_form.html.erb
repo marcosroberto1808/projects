@@ -1,0 +1,271 @@
+<%= javascript_include_tag "jquery.mask", "mascaras", "datepicker", "andamento" %>
+
+<%= render 'layouts/errors', :row => @andamento %>
+
+<%= form_for(@andamento) do |f| %>
+  <%= f.hidden_field :documento_id %>
+  <%= f.hidden_field :processo_id %>
+
+  <div class="form-group">
+    <%= f.label :forca_tarefa, "Força tarefa" %>
+    <%= f.check_box :forca_tarefa %>
+  </div>
+
+  <div class="form-group">
+    <div class="row">
+      <% if get_cadastrador(@andamento.id).present? %>
+        <div class="col-md-2">
+          <%= f.label "Cadastrado por:" %><br>
+          <%= f.text_field "cadastrado_por", value: (get_cadastrador(@andamento.id)), disabled: true %>
+        </div>
+      <% end %>
+      <div class="col-md-2">
+        <%= f.label :data %><br>
+        <%= f.text_field :data, value: ((l @andamento["data"]) if @andamento["data"].present?), size: 8, class: "campo_data" %>
+      </div>
+      <div class="col-md-2">
+        <%= f.label :data_alerta%>
+        <%= f.text_field :data_alerta, value: ((l @andamento["data_alerta"]) if @andamento["data_alerta"].present?), size: 8, class: "campo_data" %>
+      </div>
+      <div id="defensor" class="col-md-3 hidden">
+        <%= f.label :defensor_cpf, "Defensor" %>
+        <%= f.select :defensor_cpf, options_for_select((get_defensores.all.map {|d| [d.pessoa_fisica_nome, d.pessoa_fisica_cpf]}),
+                                                       @andamento.defensor_cpf), include_blank: 'Selecione uma opção' %>
+      </div>
+      <div id="operador" class="col-md-3 hidden">
+        <%= f.label :operador_cpf, "Operador" %>
+        <%= f.select :operador_cpf, options_for_select((get_operadores.all.map {|d| [d.pessoa_fisica_nome, d.pessoa_fisica_cpf]}),
+                                                       @andamento.operador_cpf), include_blank: 'Selecione uma opção' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Providência <span class="text-danger">*</span></label><br>
+    <%= f.select :classificacao_andamento_id, @classificacao.map {|c| [c.descricao, c.id]}, {include_blank: 'Selecione uma opção'}, id: 'providencia_id' %>
+  </div>
+
+  <div class="is-not-forca-tarefa">
+    <div class="form-group">
+      <%= f.label :numero_processual, "Número do Incidente Processual" %><br>
+      <%= f.text_field :numero_processual, class: "numero_processo", size: 20 %>
+    </div>
+    <% if not @is_processo_execucao %>
+      <div class="form-group">
+        <%= f.label :resposta_necessidade, "Necessita Resposta" %>
+        <%= f.check_box :resposta_necessidade %>
+      </div>
+    <% end %>
+
+    <% if not @is_processo_execucao %>
+      <div id="wrapper-necessita-resposta" class="hidden" style="margin-left: 25px;">
+        <div class="form-group">
+          <%= f.label :data_verificar_resposta, "Data Verificar Resposta" %><br>
+          <%= f.text_field :data_verificar_resposta, class: "campo_data", size: 8 %>
+        </div>
+        <div class="form-group">
+          <%= f.label :data_resposta, "Data Resposta" %><br>
+          <%= f.text_field :data_resposta, class: "campo_data", size: 8 %>
+        </div>
+        <div class="form-group">
+          <%= f.label :resposta %><br>
+          <%= f.text_area :resposta %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :resultado %><br>
+        <%= f.select :resultado, ["", "Deferido", "Indeferido", "Deferido Parcialmente"] %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="is-forca-tarefa hidden">
+    <div class="form-group">
+      <%= f.label :forca_tarefa_id, 'Selecione a Força Tarefa' %><br>
+      <%= f.select :forca_tarefa_id, @forca_tarefa.map {|f| [f.nome, f.id]}, include_blank: 'Selecione uma opção' %>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+          <h4>Previamente assistido por</h4>
+          <table>
+            <tbody>
+            <tr>
+              <td class="text-center" width="30"><%= f.check_box :pa_advogado_particular %></td>
+              <td><%= f.label :pa_advogado_particular, "Advogado particular" %></td>
+            </tr>
+            <tr>
+              <td class="text-center"><%= f.check_box :pa_asistencia_juridica %></td>
+              <td><%= f.label :pa_asistencia_juridica, "Assistência jurídica diversa da Defensoria" %></td>
+            </tr>
+            <tr>
+              <td class="text-center"><%= f.check_box :pa_defensor_publico %></td>
+              <td><%= f.label :pa_defensor_publico, "Defensor público" %></td>
+            </tr>
+            <tr>
+              <td class="text-center"><%= f.check_box :pa_sem_asistencia %></td>
+              <td><%= f.label :pa_sem_asistencia, "Sem assistência jurídica" %></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <h4>Atendimento</h4>
+        <table>
+          <tbody>
+          <tr>
+            <td class="text-center" width="30"><%= f.check_box :at_presencial %></td>
+            <td><%= f.label :at_presencial, "Presencial" %></td>
+          </tr>
+          <tr>
+            <td class="text-center"><%= f.check_box :at_analise_processual %></td>
+            <td><%= f.label :at_analise_processual, "Análise Processual" %></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <h4>Situação Prisional</h4>
+        <table>
+          <tr>
+            <td class="text-center" width="30"><%= f.check_box :sp_provisiorio %></td>
+            <td><%= f.label :sp_provisiorio, "Provisório" %></td>
+          </tr>
+          <tr>
+            <td class="text-center"><%= f.check_box :sp_condenado %></td>
+            <td><%= f.label :sp_condenado, "Condenado" %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <% if @problemas_identificados %>
+      <fieldset>
+        <legend>Problemas Identificados</legend>
+        <table>
+          <% @problemas_identificados.each do |problema| %>
+            <tr>
+              <td class="text-center" width="30"><input id="<%= problema %>" type="checkbox" name="andamento[problemas_identificados][]" value="<%= problema %>" <%= 'checked' if @andamento.problemas_identificados.include? problema %>></td>
+              <td><label for="<%= problema %>"><%= problema %></label></td>
+            </tr>
+          <% end %>
+        </table>
+      </fieldset>
+    <% end %>
+
+  </div>
+
+  <div class="form-group">
+    <%= f.label :observacao, "Observação" %><br>
+    <%= f.text_area :observacao %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :anexo, "Anexo" %><br>
+    <%= f.file_field 'anexo' %>
+  </div>
+
+  <div class="actions">
+    <% if @only_show.nil? or get_destrava_ultimo_andamento(params["processo"]) == @andamento.id and
+        params[:visualizar] == "true"%>
+      <%= f.submit "Salvar", class: "btn btn-success" %>
+    <% end %>
+    <% processo = params["processo"].present? ? params["processo"] : @andamento.processo_id %>
+    <%= link_to 'Voltar', processo_judicial_path(processo), class: 'btn btn-danger' %>
+  </div>
+<% end %>
+
+<script>
+    (function($)
+    {
+        $(document).ready(function()
+        {
+            <% if @only_show.present? and get_destrava_ultimo_andamento(params["processo"]) != @andamento.id or
+              params[:visualizar] == "false" %>
+              $('input, select, textarea').attr('disabled', true);
+            <% end %>
+
+            SEM_PROVIDENCIA_ID = '<%= @sem_providencia_id %>';
+
+            $("#andamento_data_alerta").change(function ()
+            {
+                var valor_data = $("#andamento_data_alerta");
+                var defensor = $("#defensor");
+                var operador = $("#operador");
+                defensor.addClass('hidden');
+                operador.addClass('hidden');
+                if (!(valor_data.val().length === 0)) {
+                    defensor.removeClass('hidden');
+                    operador.removeClass('hidden');
+                }
+            }).trigger('change');
+
+            $('#andamento_resposta_necessidade').change(function ()
+            {
+                var fields_seletor = $('#wrapper-necessita-resposta');
+                fields_seletor.addClass('hidden');
+                if ($(this).prop('checked'))
+                    fields_seletor.removeClass('hidden');
+            });
+
+            $('#providencia_id').select2({
+                'width': '100%',
+                'theme': 'bootstrap',
+                'dropdownAutoWidth': true,
+                'language': 'pt-BR'
+            });
+
+            $('#andamento_forca_tarefa').change(function ()
+            {
+                var is_checked = $(this).prop('checked');
+                var is_forca_tarefa = $('.is-forca-tarefa');
+                var is_not_forca_tarefa = $('.is-not-forca-tarefa');
+
+                is_forca_tarefa.addClass('hidden');
+                is_not_forca_tarefa.addClass('hidden');
+
+
+                if(is_checked)
+                {
+                    is_forca_tarefa.removeClass('hidden');
+
+                    if(SEM_PROVIDENCIA_ID && $('#providencia_id').val() === "")
+                        $('#providencia_id').val(SEM_PROVIDENCIA_ID).trigger("change");
+                }
+                else
+                {
+                    is_not_forca_tarefa.removeClass('hidden');
+                }
+
+
+                $("#providencia_id option[value='<%= @progressao_regime_id %>']").prop("disabled", is_checked);
+                $("#providencia_id option[value='<%= @livramento_condicional_id %>']").prop("disabled", is_checked);
+
+                $('#providencia_id').select2({
+                    'width': '100%',
+                    'theme': 'bootstrap',
+                    'dropdownAutoWidth': true,
+                    'language': 'pt-BR'
+                });
+            })
+                .trigger('change');
+
+
+            $('#new_andamento').submit(function()
+            {
+                var is_forca_tarefa = $('.is-forca-tarefa');
+                var is_not_forca_tarefa = $('.is-not-forca-tarefa');
+
+                is_forca_tarefa.addClass('hidden');
+                is_not_forca_tarefa.addClass('hidden');
+
+                if($('#andamento_forca_tarefa').prop('checked'))
+                    is_not_forca_tarefa.remove();
+                else
+                    is_forca_tarefa.remove();
+            });
+        });
+    })
+    (jQuery);
+</script>

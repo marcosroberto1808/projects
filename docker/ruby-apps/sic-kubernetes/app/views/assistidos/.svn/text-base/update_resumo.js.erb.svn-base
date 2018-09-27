@@ -1,0 +1,6 @@
+$("#painel_resumo").removeClass("panel panel-info");
+$("#painel_resumo").addClass("panel panel-success");
+$("#painel_resumo").show();
+$("#resumo_form").hide(); 
+$("#resumo").show();
+$("#resumo").html("<p><%= @assistido.resumo %></p>")

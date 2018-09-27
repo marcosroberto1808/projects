@@ -1,0 +1,25 @@
+class ProcessoJudicial < ActiveRecord::Base
+  belongs_to :assistido
+  belongs_to :inquerito_policial
+  belongs_to :forum
+  belongs_to :vara
+    
+  has_many :local_atuacao_processo, :dependent => :delete_all
+  has_many :localizacao_processos, :dependent => :delete_all
+  has_many :documento, :dependent => :delete_all
+  has_many :andamento, :dependent => :delete_all, foreign_key: :processo_id
+
+  validates_presence_of :numero, :cidade, :natureza, :data_abertura, message: ": O campo tem que ser preenchido."  
+  validates_presence_of :tipo, message: ": O campo tem que ser preenchido.", if: :is_execucao_penal?
+  validates :status, :inclusion => {in: [true, false], message: ": O campo tem que ser preenchido."}, if: :is_execucao_penal?
+  validates :julgado, :recurso, :carta_guia, :inclusion => {in: [true, false], message: ": O campo tem que ser preenchido."}, if: :is_acao_penal?
+
+  def is_acao_penal?
+  	(natureza == "Ação Penal") ? true : false
+  end
+
+  def is_execucao_penal?
+  	(natureza == "Execução Penal") ? true : false
+  end
+
+end

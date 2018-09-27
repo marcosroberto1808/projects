@@ -1,0 +1,51 @@
+<div>
+    <div id="painel_resumo" class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <i class="fa fa-list fa-fw"></i>
+                <b><%= @assistidos_encontrados.length %></b> resultado(s) para
+                <b><%= params["busca_assistido"] %></b>
+                <% if @pesquisa_avancada %> <b>Pesquisa Avançada</b> <% end %>
+            </h3>
+        </div>
+
+        <div class="panel-body" id="resumo">
+            <div class="row">
+                <% @assistidos_encontrados.each do |assistido| %>
+                    <div class="col-md-6">
+                        <table>
+                            <tr>
+                                <td class="dados_pessoais_label"   rowspan="2">
+                                    <div class="box_sombra">
+                                        <img src="/<%= assistido.imagem_url %>" alt="Avatar" class="avatar_imagem_low">
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="align_left">
+                                        <h5><%= assistido.nome %></h5>
+                                        <b>Assistido encontra-se: <%= assistido.try(:situacao).try(:last).try(:situacao_estado) %></b><br>
+                                        <%= assistido.try(:situacao).try(:last).try(:instituicao) %>
+                                        <%= assistido.try(:situacao).try(:last).try(:cidade) %>
+                                        <br>
+                                        <b>Mãe</b>: <%= assistido.nome_mae ? assistido.nome_mae : "Não Informado" %><br>
+                                        <b>Pai</b>: <%= assistido.nome_pai ? assistido.nome_pai : "Não Informado" %><br>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td height="30" class="text-right">
+                                    <%= link_to "Visualizar Perfil", "/assistidos/#{assistido.id}", type: "button", class: "btn btn-primary" %>
+                                </td>
+                           </tr>
+                        </table>
+                    </div>
+                <% end %>
+            </div>
+            <div class="text-center">
+              <%= will_paginate @assistidos_encontrados, params: params, renderer: BootstrapPagination::Rails %>
+            </div>
+        </div>
+    </div>
+</div>

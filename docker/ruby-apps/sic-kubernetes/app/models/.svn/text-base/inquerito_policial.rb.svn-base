@@ -1,0 +1,9 @@
+class InqueritoPolicial < ActiveRecord::Base
+  belongs_to :assistido
+  belongs_to :origem_inquerito
+  has_many :infracao, :dependent => :delete_all
+  has_many :documento, :dependent => :delete_all  
+  has_one  :situacao
+  
+  validates_presence_of :numero, :origem_inquerito_id, :cidade, :uf, :infracao_logradouro, :infracao_numero, :infracao_bairro, :data_crime, :numero_anexo, message: ": O campo tem que ser preenchido."  
+end

@@ -1,0 +1,2 @@
+module ClassificacaoAnexoInqueritosHelper
+end

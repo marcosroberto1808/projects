@@ -1,0 +1,27 @@
+<h1>Listing local_atuacao_processos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Processo judicial</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @local_atuacao_processos.each do |local_atuacao_processo| %>
+      <tr>
+        <td><%= local_atuacao_processo.processo_judicial_id %></td>
+        <td><%= link_to 'Show', local_atuacao_processo %></td>
+        <td><%= link_to 'Edit', edit_local_atuacao_processo_path(local_atuacao_processo) %></td>
+        <td><%= link_to 'Destroy', local_atuacao_processo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Local atuacao processo', new_local_atuacao_processo_path %>

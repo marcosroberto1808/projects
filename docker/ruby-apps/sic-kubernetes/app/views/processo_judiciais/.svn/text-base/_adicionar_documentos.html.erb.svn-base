@@ -1,0 +1,42 @@
+<% if @processo_judicial.id != nil %>
+  <h1>Documentos Anexados</h1>
+  <p>Clique no nome para fazer download.</p>
+
+  <% if @processo_judicial.documento %>
+    <table style="width: 100%;" class="table_documentos">
+      <tr>
+        <th>Arquivo</th>
+        <th>Tamanho</th>
+        <th>Data do Ato</th>
+        <th>Classificação Documento</th>
+        <th>Deletar</th>
+      </tr>  
+      <% @processo_judicial.documento.each do |documento| %>
+        <tr>
+          <td class="file_doc_info">
+            <%= documento.nome_url %>               
+          </td>
+          <td class="file_doc_info">
+             <%= number_to_human_size(File.size("public/documentos/#{documento.assistido_id}/processos/#{documento.processo_judicial_id}/#{documento.nome_url}"))%>
+          </td>
+          <td style="text-align:center;">
+            <%= l documento.data %>
+          </td>
+          <td style="text-align:center;">
+            <%= documento.classificacao_documento.descricao %>               
+          </td>
+          <td>
+          	<%= link_to documento, method: :delete, data: { confirm: 'Tem certeza que deseja excluir este documento?' } do %>        	
+          			<%= image_tag "glyphicons/glyphicons_197_remove.png" %>                    
+          	<% end %>
+          </td>
+        </tr>
+      <% end %>             
+    </table>
+  <% end %>
+
+  <div class="botao_left_margem">    
+    <%= link_to 'Adicionar Documento ao Processo', "/documentos/new?processo=#{@processo_judicial.id}&tipo=3", class: "btn btn-success" %>
+  </div>
+  <br>
+<% end %>

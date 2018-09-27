@@ -1,0 +1,20 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Data de cadastro</th>
+      <th>Processo</th>
+      <th>Andamento</th>
+      <th>Assistido</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @andamentos.each do |andamento| %>
+    <tr>
+      <td><%= l andamento.data %></td>
+      <td><%= andamento.processo_judicial.numero %></td>
+      <td><%= andamento.id.to_s.rjust(6, '0') %></td>
+      <td><%= andamento.processo_judicial.assistido.nome %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

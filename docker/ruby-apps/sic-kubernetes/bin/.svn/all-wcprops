@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/bin
+END
+rake
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/bin/rake
+END
+bundle
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/bin/bundle
+END
+rails
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/bin/rails
+END

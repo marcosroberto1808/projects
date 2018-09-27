@@ -1,0 +1,3 @@
+class Infracao < ActiveRecord::Base
+  belongs_to :inquerito_policial
+end

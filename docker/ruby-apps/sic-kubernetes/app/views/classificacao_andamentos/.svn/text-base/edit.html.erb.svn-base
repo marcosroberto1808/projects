@@ -1,0 +1,6 @@
+<h1>Editar Classificação de Andamento</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Exibir', @classificacao_andamento %> |
+<%= link_to 'Voltar', classificacao_andamentos_path %>

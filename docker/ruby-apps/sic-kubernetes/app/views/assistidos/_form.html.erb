@@ -1,0 +1,261 @@
+<%= stylesheet_link_tag "assistidos" %>
+<%= javascript_include_tag "jquery.mask", "mascaras", "datepicker","informacoes_socioeconomicas_radio_buttons", "sic/assistidos-consulta" %>
+<%= form_for(@assistido) do |f| %>
+  <%= f.hidden_field :id_importacao_sejus %>
+  <%= render 'layouts/errors', row: @assistido %>
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#obrigatorio">Campos Obrigatórios</a></li>
+    <li><a data-toggle="tab" href="#adicionais">Informações Adicionais</a></li>
+    <li><a data-toggle="tab" href="#contato">Informações de Contatos</a></li>
+    <li><a data-toggle="tab" href="#socioeconomica">Informações Socioeconômicas</a></li>
+    <li><a data-toggle="tab" href="#observacao">Observações</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="obrigatorio" class="tab-pane fade in active">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Campos Obrigatórios</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <%= f.label :nome %><br>
+            <div class="row">
+              <div class="col-xs-11">
+                <%= f.text_field :nome, size: 40 %>
+              </div>
+              <div class="col-xs-1">
+                <button type="button" class="btn btn-default bnt-sm" id="assistido-search" data-loading-text="<i class='fa fa-circle-o-notch fa-spin fa-3x fa-fw'></i>">
+                  <i class="fa fa-search fa-fw"></i></button>
+              </div>
+            </div>
+          </div>
+          <%= render "search_assistido_modal" %>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.label :nome_mae, "Nome da Mãe" %><br>
+                <%= f.text_field :nome_mae, size: 40 %>
+              </div>
+              <div class="col-md-3">
+                <%= f.label :sexo, "Sexo" %><br>
+                <%= f.select :sexo, options_for_select(["Masculino", "Feminino"]), include_blank: "Selecione uma opção" %>
+              </div>
+              <div class="col-md-3">
+                <%= f.label :data_nascimento, "Data de Nascimento" %><br>
+                <%= f.text_field :data_nascimento, size: 10, class: "campo_data" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="adicionais" class="tab-pane fade">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Informações Adicionais</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-4">
+                <%= f.label :estado_civil, "Estado Civil" %><br>
+                <%= f.select :estado_civil, options_for_select(["Casado", "Solteiro"]), include_blank: "Selecione uma opção" %>
+              </div>
+              <div class="col-md-4">
+                <label>RG</label>
+                <%= f.text_field :rg, class: "numero" %>
+              </div>
+              <div class="col-md-4">
+                <label>Orgão Emissor</label><br>
+                <%= f.text_field :orgao_emissor, size: 5 %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label>CPF</label><br>
+                <%= f.text_field :cpf, class: "cpf", maxlength: 11 %>
+              </div>
+              <div class="col-md-4">
+                <label>Profissão</label><br>
+                <%= f.text_field :profissao, size: 30 %>
+              </div>
+              <div class="col-md-4">
+                <%= f.label :nacionalidade %><br>
+                <%= f.text_field :nacionalidade, value: "Brasileiro", size: 10 %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <%= f.label :nome_pai, "Nome do Pai" %><br>
+                <%= f.text_field :nome_pai, size: 40 %>
+              </div>
+              <div class="col-md-4">
+                <%= f.label :cidade, "Cidade/UF" %><br>
+                <%= f.select :cidade, listaCidades.map {|c| ["#{c.nome} - #{c.uf}", c.id]}, selected: @cidade, include_blank: "Selecione uma opção" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label>CEP</label><br>
+                <%= f.text_field :cep, size: 10, class: "cep", maxlength: 9 %>
+              </div>
+              <div class="col-md-8">
+                <%= f.label :bairro %><br>
+                <%= f.text_field :bairro %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5">
+                <%= f.label :logradouro %>
+                <%= f.text_field :logradouro %>
+              </div>
+              <div class="col-md-2">
+                <%= f.label :numero, "Número" %><br>
+                <%= f.text_field :numero, size: 5 %>
+              </div>
+              <div class="col-md-5">
+                <%= f.label :complemento %><br>
+                <%= f.text_field :complemento, size: 40 %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="contato" class="tab-pane fade">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Informações de Contatos</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-4">
+                <%= f.label :telefone %><br>
+                <%= f.text_field :telefone, class: "telefone", size: 13 %>
+              </div>
+              <div class="col-md-4">
+                <%= f.label :telefone_dois, "Telefone Dois" %><br>
+                <%= f.text_field :telefone_dois, class: "telefone", size: 13 %>
+              </div>
+              <div class="col-md-4">
+                <%= f.label :telefone_tres, "Telefone Três" %><br>
+                <%= f.text_field :telefone_tres, class: "telefone", size: 13 %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.label :contato_nome, "Contato Nome" %><br>
+                <%= f.text_field :contato_nome, size: 40 %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :contato_telefone, "Contato Telefone" %><br>
+                <%= f.text_field :contato_telefone, class: "telefone", size: 13 %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.label :contato_tipo_vinculo, "Contato Tipo Vínculo" %><br>
+                <%= f.text_field :contato_tipo_vinculo %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :contato_email, "Contato Email" %><br>
+                <%= f.text_field :contato_email, size: 30 %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label>Observação</label><br>
+                <%= f.text_area :observacao, cols: 60, rows: 5 %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="socioeconomica" class="tab-pane fade">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Informações Socioeconômicas</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Nível de Escolaridade</label><br>
+                <%= select_tag :escolaridade, options_for_select(["Superior Completo", "Superior Incompleto", "Ensino Médio Completo", "Ensino Médio Incompleto", "Ensino Fundamental Completo", "Ensino Fundamental Incompleto", "Não Alfabetizado(a)"]), prompt: 'Selecione uma opção' %>
+              </div>
+              <div class="col-md-6">
+                <%= label_tag :renda_familiar %><br>
+                <%= select_tag :renda, options_for_select(["Menos de 1 Salário", "Um Salário", "Entre 1 e 2 Salários", "Entre 2 e 5 salários", "Mais de 5 Salários"]), prompt: 'Selecione uma opção' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label><%= check_box_tag :drogas %> Usa drogas</label>
+          </div>
+          <div class="field col-md-12 ocultar" id="hiden_drogas">
+            <%= text_area_tag :drogas_descricao, "", size: "30x1", placeholder: "Descrição" %><br>
+          </div>
+          <div class="form-group">
+            <label><%= check_box_tag :tratamento %> Aceita tratamento</label><br>
+          </div>
+          <div class="col-md-12 field ocultar" id="hiden_tratamento">
+            <%= radio_button_tag :tratamento_descricao, "Com internação", true %><label>Com internação</label>
+            <%= radio_button_tag :tratamento_descricao, "Sem internação" %><label>Sem internação</label>
+          </div>
+          <div class="form-group">
+            <label><%= check_box_tag :saude %> Problema de saúde</label><br>
+          </div>
+          <div class="field col-md-12 ocultar" id="hiden_saude">
+            <%= text_area_tag :saude_descricao, "", size: "30x1", placeholder: "Descrição" %><br>
+          </div>
+          <div class="form-group">
+            <label><%= check_box_tag :atividades %> Incluido em atividade no presídio</label><br>
+          </div>
+          <div class="field ocultar col-md-12" id="hiden_atividades">
+            <%= text_area_tag :atividades_descricao, "", size: "30x1", placeholder: "Descrição" %><br>
+          </div>
+          <div class="form-group">
+            <label><%= check_box_tag :empregado %> Trabalhava antes da prisão</label><br>
+          </div>
+          <div class="field ocultar col-md-12" id="hiden_empregado">
+            <%= text_area_tag :empregado_descricao, "", size: "30x1", placeholder: "Descrição" %><br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="observacao" class="tab-pane fade">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Observações</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <div class="col-md-12">
+              <label>Histórico de Delitos</label><br>
+              <%= text_area_tag :historico_delito_atual, nil, rows: 5 %>
+            </div>
+            <div class="col-md-12">
+              <label>Antecedentes Criminais</label><br>
+              <%= text_area_tag :antecedentes_criminais, nil, rows: 5 %>
+            </div>
+            <div class="col-md-12">
+              <label>Pretensões Futuras</label><br>
+              <%= text_area_tag :pretensoes_futuras, nil, rows: 5 %>
+            </div>
+            <div class="col-md-12">
+              <label>Complementares</label><br>
+              <%= text_area_tag :observacoes_complementares, nil, rows: 5 %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= f.submit "Salvar", class: "btn btn-success" %>
+  <%= link_to 'Cancelar', :back, class: "btn btn-primary" %>
+<% end %>

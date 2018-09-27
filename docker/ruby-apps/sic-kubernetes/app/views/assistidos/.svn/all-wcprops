@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/sistema_de_informacoes_criminais/!svn/ver/391/trunk/sic/app/views/assistidos
+END
+_select_cidade.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/sistema_de_informacoes_criminais/!svn/ver/380/trunk/sic/app/views/assistidos/_select_cidade.html.erb
+END
+index.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/assistidos/index.html.erb
+END
+update_dados_pessoais.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/assistidos/update_dados_pessoais.js.erb
+END
+show.json.jbuilder
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/assistidos/show.json.jbuilder
+END
+select_cidade.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/sistema_de_informacoes_criminais/!svn/ver/380/trunk/sic/app/views/assistidos/select_cidade.js.erb
+END
+show.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/sistema_de_informacoes_criminais/!svn/ver/388/trunk/sic/app/views/assistidos/show.html.erb
+END
+pesquisar_assistidos.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/assistidos/pesquisar_assistidos.html.erb
+END
+update_situacao.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/assistidos/update_situacao.js.erb
+END
+update.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/assistidos/update.html.erb
+END
+update_resumo.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/sistema_de_informacoes_criminais/!svn/ver/389/trunk/sic/app/views/assistidos/update_resumo.js.erb
+END
+edit.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/assistidos/edit.html.erb
+END
+update_socioeconomicas.js.erb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/assistidos/update_socioeconomicas.js.erb
+END
+new.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/assistidos/new.html.erb
+END
+_form.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/sistema_de_informacoes_criminais/!svn/ver/391/trunk/sic/app/views/assistidos/_form.html.erb
+END
+index.json.jbuilder
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/sistema_de_informacoes_criminais/!svn/ver/341/trunk/sic/app/views/assistidos/index.json.jbuilder
+END

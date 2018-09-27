@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= @permissao_acesso.cpf %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @permissao_acesso.data %>
+</p>
+
+<%= link_to 'Edit', edit_permissao_acesso_path(@permissao_acesso) %> |
+<%= link_to 'Back', permissao_acessos_path %>

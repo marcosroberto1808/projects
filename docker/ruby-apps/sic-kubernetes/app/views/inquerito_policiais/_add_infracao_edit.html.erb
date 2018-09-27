@@ -1,0 +1,20 @@
+<h4>Adicionar Infrações</h4>
+
+<%= form_tag "/add_infracao_edit", remote: true do %>
+
+    <Label>Codigo/Nome: </label> <br>
+    <div class="col-md-6">
+        <div class="field">
+            <%= text_field_tag :infracao_codigo %>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="field">
+            <%= text_field_tag :infracao_nome %>
+        </div>
+    </div>
+    <br>
+    <%= submit_tag "Adicionar", class: "btn btn-primary margin-top" %>
+
+<% end %>

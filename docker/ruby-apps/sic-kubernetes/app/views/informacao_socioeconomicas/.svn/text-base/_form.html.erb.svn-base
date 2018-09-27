@@ -1,0 +1,49 @@
+<%= form_for(@informacao_socioeconomica) do |f| %>
+  <% if @informacao_socioeconomica.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@informacao_socioeconomica.errors.count, "error") %> prohibited this informacao_socioeconomica from being saved:</h2>
+
+      <ul>
+      <% @informacao_socioeconomica.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :assistido_id %><br>
+    <%= f.text_field :assistido_id %>
+  </div>
+  <div class="field">
+    <%= f.label :nivel_escolaridade %><br>
+    <%= f.text_field :nivel_escolaridade %>
+  </div>
+  <div class="field">
+    <%= f.label :usa_drogas %><br>
+    <%= f.check_box :usa_drogas %>
+  </div>
+  <div class="field">
+    <%= f.label :aceita_tratamento %><br>
+    <%= f.check_box :aceita_tratamento %>
+  </div>
+  <div class="field">
+    <%= f.label :problema_sauda %><br>
+    <%= f.check_box :problema_sauda %>
+  </div>
+  <div class="field">
+    <%= f.label :incluido_atividade_presidio %><br>
+    <%= f.check_box :incluido_atividade_presidio %>
+  </div>
+  <div class="field">
+    <%= f.label :trabalhava_antes_prisao %><br>
+    <%= f.check_box :trabalhava_antes_prisao %>
+  </div>
+  <div class="field">
+    <%= f.label :renda_familiar %><br>
+    <%= f.text_field :renda_familiar %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

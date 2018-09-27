@@ -1,0 +1,25 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th width="150">Data Inicial</th>
+      <th width="150">Data Final</th>
+      <th>Ativo?</th>
+      <th class="text-center" width="150">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @forca_tarefas.each do |forca_tarefa| %>
+    <tr>
+      <td><%= forca_tarefa.nome %></td>
+      <td><%= forca_tarefa.data_inicial.strftime('%d/%m/%Y') %></td>
+      <td><%= forca_tarefa.data_final.strftime('%d/%m/%Y') %></td>
+      <td><%= forca_tarefa.ativo ? 'Sim' : 'Não' %></td>
+      <td class="text-center">
+        <%= link_to 'Editar', edit_forca_tarefa_path(forca_tarefa), :class => "intra-icon icon-edit" %>
+        <%= link_to 'Deletar', forca_tarefa, method: :delete, :class => "intra-icon icon-excluir", data: {confirm: 'Tem certeza?'} %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,21 @@
+<%= form_for(@local_atuacao_processo) do |f| %>
+  <% if @local_atuacao_processo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@local_atuacao_processo.errors.count, "error") %> prohibited this local_atuacao_processo from being saved:</h2>
+
+      <ul>
+      <% @local_atuacao_processo.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :processo_judicial_id %><br>
+    <%= f.text_field :processo_judicial_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

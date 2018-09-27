@@ -1,0 +1,18 @@
+$("#painel_socioeconomicas").removeClass("panel panel-info");
+$("#painel_socioeconomicas").addClass("panel panel-success");
+$("#painel_socioeconomicas").show();
+$("#socioeconomicas_form").hide();
+$("#socioeconomicas").show();
+$("#escolaridade_label").html("<%= @socioe.nivel_escolaridade %>");
+$("#renda_label").html("<%= @socioe.renda_familiar %>");
+
+$("#drogas_label").html('<%= check_box_tag :drogas, "", @socioe.usa_drogas, disabled: true %>');
+$("#tratamento_label").html('<%= check_box_tag :tratamento, "", @socioe.aceita_tratamento, disabled: true %>');
+$("#saude_label").html('<%= check_box_tag :saude, "", @socioe.problema_sauda, disabled: true %>');
+$("#atividades_label").html('<%= check_box_tag :atividades, "", @socioe.incluido_atividade_presidio, disabled: true %>');
+$("#empregado_label").html('<%= check_box_tag :empregado, "", @socioe.trabalhava_antes_prisao, disabled: true %>');
+$("#drogas_descricao_label").text("<%= @socioe.usa_drogas_descricao %>");
+$("#tratamento_descricao_label").text("<%= @socioe.aceita_tratamento_descricao %>");
+$("#saude_descricao_label").text("<%= @socioe.problema_sauda_descricao %>");
+$("#atividades_descricao_label").text("<%= @socioe.incluido_atividade_presidio_descricao %>");
+$("#empregado_descricao_label").text("<%= @socioe.trabalhava_antes_prisao_descricao %>");

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SIC</title>
+		<%= stylesheet_link_tag "bootstrap-theme", "bootstrap", "main", "jquery-ui", media: "all", "data-turbolinks-track" => true %>
+		<%= javascript_include_tag "jquery","bootstrap","jquery-ui", "datepicker", "jquery.mask", "mascaras", "application", "data-turbolinks-track" => true %>
+		<%= csrf_meta_tags %>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<%= render "layouts/header" %>		
+
+			<div class="conteudo">			
+				<% if alert %>
+					<div class="alert center">
+						<p class="alert alert-error"><%= alert %></p>
+					</div>
+				<% end %>
+
+				<% if notice %>	
+					<div class="notice center">
+						<p class="alert alert-notice"><%= notice %></p>
+					</div>
+				<% end %>
+
+				<% if flash.now[:warning] %>
+					<% flash.now[:warning].each do |warning| %>		
+						<div class="warning center">
+							<p class="alert alert-warning"><%= warning %></p>
+						</div>
+					<% end %>
+				<% end %>
+
+				<div class="perfil" style="margin-left: 100px; margin-right: 100px;">		
+					<%= yield %>
+				</div>
+			</div>
+			<div class="push"></div>
+		</div>
+
+		<div class="footer">
+			<center>
+			Defensoria Pública - Av. Pinto Bandeira, 1111 - Bairro Luciano Cavalcante - Cep : 60.811-170, Fortaleza/Ceará
+			<br>
+			Sistemas de Informações Criminais
+			</center>
+		</div>
+
+	</body>
+</html>

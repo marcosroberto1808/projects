@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <!-- Meta Tags -->
+    <meta http-equiv="Content-Type" content="text/html;" />
+    <title>Sistema de Emissão de Guia - Email</title>
+    <!-- Folha de Estilo -->
+    <style type="text/css">
+      table
+      {
+        font-family: Arial, Geneva, Helvetica, Verdana;
+        font-size:11px;
+        color:#4d4d4d;
+      }
+      #mail
+      {
+        margin:0 auto;
+        padding:0;
+        background-image:url('http://sirdp.defensoria.ce.gov.br/images/email_sirdp.png');
+        background-repeat:no-repeat;
+        min-height:270px;
+        width:623px;
+        text-align:center;
+      }
+
+      #txtmail
+      {
+        position:relative;
+        top:130px;
+        left:20px;
+        font-family: Arial, Geneva, Helvetica, Verdana;
+        font-size:11px;
+        color:#4d4d4d;
+        width:590px;
+        text-align:left;
+      }
+
+      a:link
+      {
+        font-family:Arial, Verdana, Geneva, Helvetica;
+        font-size:11px;
+        color:#52876a;
+        text-decoration:none;
+      }
+
+      a:visited
+      {
+        font-family:Arial, Verdana, Geneva, Helvetica;
+        font-size:11px;
+        color:#52876a;
+        text-decoration:none;
+      }
+
+      a:hover
+      {
+        font-family:Arial, Verdana, Geneva, Helvetica;
+        font-size:11px;
+        color:#52876a;
+        text-decoration:underline;
+      }
+
+      a:active
+      {
+        font-family:Arial, Verdana, Geneva, Helvetica;
+        font-size:11px;
+        color:#52876a;
+        text-decoration:none;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+    <div id="mail">
+      <div id="txtmail">
+        <p><%= yield %></p>
+      </div>
+    </div>
+  </body>
+</html>

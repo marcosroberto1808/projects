@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Classificacao andamento:</strong>
+  <%= @andamento.classificacao_andamento %>
+</p>
+
+<p>
+  <strong>Documento:</strong>
+  <%= @andamento.documento %>
+</p>
+
+<p>
+  <strong>Processo:</strong>
+  <%= @andamento.processo %>
+</p>
+
+<p>
+  <strong>Resposta necessidade:</strong>
+  <%= @andamento.resposta_necessidade %>
+</p>
+
+<p>
+  <strong>Resposta:</strong>
+  <%= @andamento.resposta %>
+</p>
+
+<p>
+  <strong>Data resposta:</strong>
+  <%= @andamento.data_resposta %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @andamento.data %>
+</p>
+
+<p>
+  <strong>Data verificar resposta:</strong>
+  <%= @andamento.data_verificar_resposta %>
+</p>
+
+<p>
+  <strong>Resultado:</strong>
+  <%= @andamento.resultado %>
+</p>
+
+<p>
+  <strong>Numero processual:</strong>
+  <%= @andamento.numero_processual %>
+</p>
+
+<%= link_to 'Edit', edit_andamento_path(@andamento) %> |
+<%= link_to 'Back', andamentos_path %>

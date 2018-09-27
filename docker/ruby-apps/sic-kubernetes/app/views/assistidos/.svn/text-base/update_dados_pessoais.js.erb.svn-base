@@ -1,0 +1,36 @@
+<% if @erro_update_dados_pessoais == false %>
+	$("#erro_update_dados_pessoais").show();
+	$("#erro_update_dados_pessoais").html("<%= @erros.html_safe %>");
+<% else %>
+	$("#erro_update_dados_pessoais").hide();
+	$("#painel_dados_pessoais").removeClass("panel panel-info");
+	$("#painel_dados_pessoais").addClass("panel panel-success");
+	$("#painel_dados_pessoais").show();
+	$("#dados_pessoais_form").hide(); 
+	$("#dados_pessoais").show();
+	$("#nome_social_label").html("<%= @assistido.nome_social %>");
+	$("#sexo_label").html("<%= @assistido.sexo %>");
+	$("#profissao_label").html("<%= @assistido.profissao %>");
+	<% if @assistido.data_nascimento %>
+		$("#data_nascimento_label").html("<%= l @assistido.data_nascimento %>");
+	<% end %>
+	$("#nome_mae_label").html("<%= @assistido.nome_mae %>");
+	$("#nome_pai_label").html("<%= @assistido.nome_pai %>");
+	$("#cpf_label").html("<%= @assistido.cpf %>");
+	$("#rg_orgao_label").html("<%= @assistido.rg %>/<%= @assistido.orgao_emissor %>");
+	$("#estado_civil_label").html("<%= @assistido.estado_civil %>");
+	$("#nacionalidade_label").html("<%= @assistido.nacionalidade %>");
+	$("#cep_label").html("<%= @assistido.cep %>");
+	$("#logradouro_numero_label").html("<%= @assistido.logradouro %>/<%= @assistido.numero %>");
+	$("#complemento_label").html("<%= @assistido.complemento %>");
+	$("#bairro_label").html("<%= @assistido.bairro %>");
+	$("#cidade_uf_label").html("<%= @assistido.cidade %>/<%= @assistido.uf %>");
+	$("#contato_nome_label").html("<%= @assistido.contato_nome %>");
+	$("#contato_tipo_vinculo_label").html("<%= @assistido.contato_tipo_vinculo %>");
+	$("#contato_telefone_label").html("<%= @assistido.contato_telefone %>");
+	$("#contato_email_label").html("<%= @assistido.contato_email %>");
+	$("#telefone_label").html("<%= @assistido.telefone %>");
+	$("#telefone_dois_label").html("<%= @assistido.telefone_dois %>");
+	$("#telefone_tres_label").html("<%= @assistido.telefone_tres %>");
+	$("#nome_label").html("<%= @assistido.nome %>");	
+<% end %>

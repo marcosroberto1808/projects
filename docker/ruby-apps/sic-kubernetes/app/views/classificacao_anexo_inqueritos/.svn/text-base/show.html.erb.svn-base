@@ -1,0 +1,7 @@
+<p>
+  <strong>Nome</strong>
+  <%= @classificacao_anexo_inquerito.descricao %>
+</p>
+
+<%= link_to 'Editar', edit_classificacao_anexo_inquerito_path(@classificacao_anexo_inquerito) %> |
+<%= link_to 'Voltar', classificacao_anexo_inqueritos_path %>

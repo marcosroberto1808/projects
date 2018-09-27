@@ -1,0 +1,29 @@
+<h1>Lista de Classificações de Documentos</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Tipo</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @classificacao_documentos.each do |classificacao_documento| %>
+      <tr>
+        <td><%= classificacao_documento.descricao %></td>
+        <td><%= classificacao_documento.tipo_documento_nome %></td>
+        <td><%= link_to 'Exibir', classificacao_documento %></td>
+        <td><%= link_to 'Editar', edit_classificacao_documento_path(classificacao_documento) %></td>
+        <td><%= link_to 'Deletar', classificacao_documento, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nova Classificação de Documento', new_classificacao_documento_path %>

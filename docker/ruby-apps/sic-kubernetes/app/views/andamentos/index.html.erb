@@ -1,0 +1,45 @@
+<h1>Listing andamentos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Classificacao andamento</th>
+      <th>Documento</th>
+      <th>Processo</th>
+      <th>Resposta necessidade</th>
+      <th>Resposta</th>
+      <th>Data resposta</th>
+      <th>Data</th>
+      <th>Data verificar resposta</th>
+      <th>Resultado</th>
+      <th>Numero processual</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @andamentos.each do |andamento| %>
+      <tr>
+        <td><%= andamento.classificacao_andamento %></td>
+        <td><%= andamento.documento %></td>
+        <td><%= andamento.processo %></td>
+        <td><%= andamento.resposta_necessidade %></td>
+        <td><%= andamento.resposta %></td>
+        <td><%= andamento.data_resposta %></td>
+        <td><%= andamento.data %></td>
+        <td><%= andamento.data_verificar_resposta %></td>
+        <td><%= andamento.resultado %></td>
+        <td><%= andamento.numero_processual %></td>
+        <td><%= link_to 'Show', andamento %></td>
+        <td><%= link_to 'Edit', edit_andamento_path(andamento) %></td>
+        <td><%= link_to 'Destroy', andamento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Andamento', new_andamento_path %>

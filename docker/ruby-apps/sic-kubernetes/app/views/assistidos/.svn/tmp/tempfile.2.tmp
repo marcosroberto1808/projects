@@ -1,0 +1,767 @@
+<%= stylesheet_link_tag "assistidos" %>
+<%= javascript_include_tag "assistidos", "informacoes_socioeconomicas_radio_buttons" %>
+
+<% if @assistido.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@assistido.errors.count, "error") %> impediram este assistido de ser salvo:</h2>
+
+    <ul>
+    <% @assistido.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div id="info_base" class="bloco_info">
+  <div class="panel panel-success">
+    <div class="panel-heading">      
+      <h4><%= image_tag "glyphicons/glyphicons_352_nameplate.png" %>  Assistido</h4>
+    </div>
+      <div class="panel-body">
+        <table class="table-panel">
+          <tr>
+            <td class="avatar_side">                
+              <div class="avatar_box">
+                <img src="/<%= @assistido.imagem_url %>" alt="Avatar" class="avatar_imagem_big">
+                <!-- <label><%= link_to 'Alterar Imagem', "", id: "avatar", class: "alterar_avatar" %></label> -->
+              </div>  
+            </td>
+
+            <td>
+            <div class="info_resumo">
+              <div class="center">
+                <p class="alert alert-error ocultar" id="erro_update_situacao"></p>
+              </div>
+              <h3 id="nome_label" title="<%= @assistido.nome %>"> <%= @assistido.nome %> </h3>          
+                <%= image_tag "glyphicons/glyphicons_150_edit.png", class: "botao botao_hide", id: "editar", onclick: "editar_situacao();" %>
+                <div id="bloco_situacao">
+                  <h4 id="situacao_label">
+                    Encontra-se: <%= @situacao.situacao_estado %>
+                  </h4>
+                  <h5 id="situacao_local_label"><%= @situacao.instituicao %>, 
+                    <%= @situacao.cidade %>, <%= @situacao.uf %> - 
+                    <%= l @situacao.data_prisao if @situacao.data_prisao %>
+                  </h5>
+                </div>
+                <div id="situacao_form" class="ocultar">
+                  <fieldset>
+                    <%= form_tag "/update_situacao", remote: true do %>
+                      <b>Situação:</b>
+                      <% if @assistido.inquerito_policial.present? %>
+                        <%= select_tag :situacao, options_for_select(["Não Informado", "Preso", "Em Liberdade"], @situacao.situacao_estado) %><br>
+                      <% else %>
+                        <%= select_tag :situacao, options_for_select(["Não Informado", "Em Liberdade"], @situacao.situacao_estado) %><br>
+                      <% end %>
+                      <b>Cidade/UF da Prisão:</b> <br>
+                      <%= text_field_tag :cidade, @situacao.cidade %>/
+                      <%= select_tag :uf, options_for_select(listaEstados, @situacao.uf), :include_blank => true %>
+                      <br>
+                      <b>Instituição<b><br>          
+                      <%= text_field_tag :instituicao, @situacao.instituicao %><br>
+                      <b>Data Prisão<b><br>
+                      <% if @situacao.data_prisao %>
+                        <%= text_field_tag :data_prisao, (l @situacao.data_prisao), class: "campo_data", size: 10 %><br>
+                      <% else %>
+                         <%= text_field_tag :data_prisao, (@situacao.data_prisao), class: "campo_data", size: 10 %><br>
+                      <% end %>                        
+                      <b>Em caso de Prisão<b><br>
+                      <label>Notificar</label> - <%= check_box_tag :notificar, "X", checked: true %><br>
+                      <!--
+                        <%= select_tag :local_atuacao, options_for_select(get_locais_atuacao(get_cpf).map{|l| [l.descricao_local, l.id]}), style: "width:300px;" %>
+                        <br>
+                      -->
+                      <label>Inquérito:</label><br>
+                      <%= select_tag :inquerito, options_for_select(@assistido.inquerito_policial.map{|i|[i.numero, i.id]}) %><br>
+
+                      <%= button_to 'Salvar' %>
+                    <% end %>
+                  </fieldset>                 
+                </div>
+                <label>Último Inquérito:</label> 
+                <%= @assistido.inquerito_policial.last ? @assistido.inquerito_policial.last.numero : "Nenhum Inquerito Cadastrado" %> <br>
+                <label>Anterior:</label> 
+                <%= @assistido.inquerito_policial[-2] ? @assistido.inquerito_policial[-2].numero : "Nenhum Inquerito Cadastrado" %> <br>
+                <label>Processos Judiciais:</label> 
+                <%= @assistido.processo_judicial.length %> <br>
+                <label>Inqueritos:</label> 
+                <%= @assistido.inquerito_policial.length %> <br>
+
+                <a id="botao_editar" role="button" class="btn btn-primary" onclick="editar_assistido()">Editar</a>
+
+                <a id="botao_editar_concluir" role="button" class="btn btn-info esconder" onclick="editar_assistido_concluir()">Concluir Edições</a>
+
+                <%= link_to 'Excluir Assistido', @assistido, method: :delete, data: { confirm: 'Tem certeza que deseja excluir este assistido?' }, type: 'button', class: "btn btn-danger esconder", id: "excluir" %>
+            </td> 
+          </tr>  
+        </table>
+
+        <div class="align_right">
+          <a role="button" class="btn btn-success" href="#informacoes_pessoais">Informações Pessoais</a>
+        </div>
+      </div>
+</div>
+
+<div class="resumo" class="margem_bloco_info_anterior">
+  <div id="painel_resumo" class="panel panel-success" class="bloco_info">
+    <div class="panel-heading">
+      <h4>
+        <%= image_tag "glyphicons/glyphicons_351_book_open.png" %>  Resumo 
+        <%= image_tag "glyphicons/glyphicons_150_edit.png", class: "botao botao_hide", id: "editar", onclick: "editar_bloco('resumo')" %>
+        <%= image_tag "glyphicons/glyphicons_369_collapse_top.png", class: "botao botao_direita", id: "minimizar", onclick: "minimizar_bloco('resumo',this)" %>        
+      </h4>
+    </div>
+      <div class="panel-body" id="resumo">
+        <p><%= @assistido.resumo %></p>
+      </div>
+      <div class="panel-body ocultar" id="resumo_form">
+        <%= form_tag "/update_resumo", remote: true do %>
+          <%= text_area_tag :resumo, @assistido.resumo, cols: 75, rows: 5 %>
+          <%= hidden_field_tag :assistido_id, @assistido.id %>            
+          <%= button_to 'Salvar' %>
+        <% end %>
+      </div> 
+    </div>       
+</div>
+
+<div class="processos_judiciais" class="bloco_info margem_bloco_info_anterior">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h4>
+        <%= image_tag "glyphicons/glyphicons_319_sort.png" %>  Processos Judiciais
+
+        <%= link_to(image_tag("glyphicons/glyphicons_190_circle_plus.png", alt: "Adicionar Processo Judicial", title: "Adicionar Processo Judicial"), new_processo_judicial_path, id: "editar", class: "botao botao_hide", onclick: "editar_bloco('processos_judiciais')") %>
+
+        <%= image_tag "glyphicons/glyphicons_369_collapse_top.png", class: "botao botao_direita", id: "minimizar", onclick: "minimizar_bloco('processos_judiciais',this)" %>        
+      </h4>Clique no Processo para ver os detalhes.
+    </div>
+      <div class="panel-body" id="processos_judiciais">
+        <% @assistido.processo_judicial.each do |processo| %>
+          <table>
+            <tr>
+              <td class="align_left">
+                <div id="processo_judicial_item" class="sem_eventos" onclick="editar_processo_judicial('<%= processo.id%>')">
+                  <p><b><%= processo.numero %></b></p>
+                  <label><%= processo.vara.nome %> - <%= processo.vara.forum.nome %></label><br>
+                  <p>
+                    <%= get_mes_by_num(processo.data_abertura.month) %> de 
+                    <%= processo.data_abertura.year %> - Até o momento 
+                    <%= Date.today.year - processo.data_abertura.year %> anos e 
+                    <%= Date.today.month - processo.data_abertura.month %> meses. | 
+                    <%= processo.cidade %>, <%= processo.estado %><br><br>
+                    <% if processo.resumo.length > 145 %>
+                      <%= processo.resumo[0..145]+"..." %>
+                    <% else %>
+                      <%= processo.resumo %>
+                    <% end %>                    
+                  </p>
+                </div>
+              </td>
+
+              <td>
+                <%= link_to(image_tag("glyphicons/glyphicons_029_notes_2.png", alt: "Exibir Processo", title: "Visualizar detalhes do Processo"), processo, id: "show", class: "botao") %> 
+              </td>                
+            </tr>
+          </table>
+          <hr>            
+        <% end %>
+      </div>
+    </div>
+</div>
+
+<div class="inqueritos" class="bloco_info margem_bloco_info_anterior">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h4>
+        <%= image_tag "glyphicons/glyphicons_319_sort.png" %>  Inquéritos
+
+        <%= link_to(image_tag("glyphicons/glyphicons_190_circle_plus.png", alt: "Adicionar Processo Judicial", title: "Adicionar Processo Judicial"), new_inquerito_policial_path, id: "editar", class: "botao botao_hide", onclick: "editar_bloco('inqueritos')") %>                  
+        <%= image_tag "glyphicons/glyphicons_369_collapse_top.png", class: "botao botao_direita", id: "minimizar", onclick: "minimizar_bloco('inqueritos',this)" %>
+      </h4>
+      Clique no Inquérito para ver os detalhes.
+    </div>
+      <div class="panel-body" id="inqueritos">
+        <% @assistido.inquerito_policial.each do |inquerito| %>
+          <table>
+            <tr>
+              <td class="align_left">
+                <div id="inquerito_policial_item" class="sem_eventos" onclick="editar_inquerito_policial('<%= inquerito.id%>')">
+                  <p><b><%= inquerito.numero %></b></p>
+                  <label><%= inquerito.origem_inquerito.nome %></label><br>
+                  <% if inquerito.data_abertura.present? %>
+                    <%= inquerito.data_abertura.day %> de 
+                    <%= get_mes_by_num(inquerito.data_abertura.month) %> de 
+                    <%= inquerito.data_abertura.year %> |
+                  <% end %> 
+                  <%= inquerito.cidade %>, <%= inquerito.uf %><br><br>
+                  <% if inquerito.observacao.length > 145 %>
+                    <%= inquerito.observacao[0..145]+"..." %>
+                  <% else %>
+                    <%= inquerito.observacao %>
+                  <% end %>                   
+                </div>   
+              </td>
+
+              <td>
+                <%= link_to(image_tag("glyphicons/glyphicons_029_notes_2.png", alt: "Exibir Inquerito", title: "Visualizar detalhes do Inquérito"), inquerito, id: "show", class: "botao") %> 
+              </td>                
+            </tr>
+          </table>
+          <hr>
+        <% end %>
+      </div>
+    </div>
+</div>  
+
+<div class="responde" class="bloco_info margem_bloco_info_anterior">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h4>
+        <%= image_tag "glyphicons/glyphicons_196_circle_exclamation_mark.png" %>
+        Responde a                  
+        <%= image_tag "glyphicons/glyphicons_369_collapse_top.png", class: "botao botao_direita", id: "minimizar", onclick: "minimizar_bloco('responde',this)" %>
+      </h4>
+      Aponte o cursor para o código para visualizar a descrição da infração.
+    </div>
+      <div class="panel-body" id="responde">
+        <% @assistido.inquerito_policial.each do |inquerito| %>
+          <% inquerito.infracao.each do |infracao| %>
+            <span class="label label-danger" title="<%= infracao.descricao_nome %>"><%= infracao.descricao_codigo %></span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>  
+</div>
+
+<div class="informacoes_pessoais" class="bloco_info margem_bloco_info_anterior" id="informacoes_pessoais">
+  <div id="painel_dados_pessoais" class="panel panel-success">
+    <div class="panel-heading">
+      <h4>
+        <%= image_tag "glyphicons/glyphicons_003_user.png" %>  Informações
+        <%= image_tag "glyphicons/glyphicons_150_edit.png", class: "botao botao_hide", id: "editar", onclick: "editar_bloco('dados_pessoais')" %>           
+        <%= image_tag "glyphicons/glyphicons_369_collapse_top.png", class: "botao botao_direita", id: "minimizar", onclick: "minimizar_bloco('dados_pessoais',this)" %>
+      </h4>
+    </div>
+      <div class="panel-body ocultar" id="dados_pessoais_form">
+        <div class="center">
+          <p class="alert alert-error ocultar" id="erro_update_dados_pessoais"></p>
+        </div>
+        <%= form_tag "/update_dados_pessoais", remote: true do %>
+          <h4>Dados Pessoais</h4>
+          <table>           
+            <tr>
+              <td class="dados_pessoais_label"><label>Nome<label></td>
+              <td class="align_left">
+                <%= text_field_tag :nome, @assistido.nome, size: 30 %>
+              </td>
+            </tr>      
+
+            <tr>
+              <td class="dados_pessoais_label"><label>Sexo<label></td>
+              <td class="align_left">
+                <% if @assistido.sexo == "Masculino" %>
+                  <%= radio_button_tag :sexo, "Masculino", checked: true %> Masculino
+                  <%= radio_button_tag :sexo, "Feminino" %> Feminino
+                <% else %>
+                  <%= radio_button_tag :sexo, "Masculino" %> Masculino
+                  <%= radio_button_tag :sexo, "Feminino", checked: true %> Feminino
+                <% end %>  
+              </td>  
+            </tr>              
+            <tr>
+              <td class="dados_pessoais_label"><label>Profissão<label></td>
+              <td class="align_left">
+                <%= text_field_tag :profissao, @assistido.profissao, size: 30 %>
+              </td>
+            </tr>
+            <tr>
+              <td class="dados_pessoais_label"><label>Data de Nascimento<label></td>
+              <td class="align_left">
+                <% if @assistido.data_nascimento %>
+                  <%= text_field_tag :data_nascimento, (l @assistido.data_nascimento), class: "campo_data", size: 10 %>
+                <% else %>
+                   <%= text_field_tag :data_nascimento, (@assistido.data_nascimento), class: "campo_data", size: 10 %>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="dados_pessoais_label"><label>Nome do Pai<label></td>
+              <td class="align_left">
+                <%= text_field_tag :nome_pai, @assistido.nome_pai, size: 30 %>
+              </td>
+            </tr>              
+            <tr>
+              <td class="dados_pessoais_label"><label>Nome da Mãe<label></td>
+              <td class="align_left">
+                <%= text_field_tag :nome_mae, @assistido.nome_mae, size: 30 %>
+              </td>
+            </tr>
+
+            <tr class="align_left">
+              <td class="align_left"><label>CPF<label></td>
+              <td class="align_left"><%= text_field_tag :cpf, @assistido.cpf, class: "cpf", size: 11 %></td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>RG/Orgão Emissor<label></td>
+              <td class="align_left">
+                <%= text_field_tag :rg, @assistido.rg %>/
+                <%= text_field_tag :orgao_emissor, @assistido.orgao_emissor, size: 5 %>
+              </td>
+            </tr>            
+
+            <tr class="align_left">
+              <td class="align_left"><label>Estado Civil<label></td>
+              <td class="align_left">
+                <%= select_tag :estado_civil, options_for_select(["Casado", "Solteiro"], @assistido.estado_civil), :include_blank => true %>
+              </td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Nacionalidade<label></td>
+              <td class="align_left">
+                <%= text_field_tag :nacionalidade, @assistido.nacionalidade %>
+              </td>
+            </tr> 
+
+            <tr class="align_left">
+              <td class="align_left"><label>CEP<label></td>
+              <td class="align_left"><%= text_field_tag :cep, @assistido.cep, class: "cep" %></td>
+            </tr>            
+            <tr class="align_left">
+              <td class="align_left"><label>Logradouro/Numero<label></td>
+              <td class="align_left">
+                <%= text_field_tag :logradouro, @assistido.logradouro, size: 30 %>/
+                <%= text_field_tag :numero, @assistido.numero, size: 4 %>
+              </td>
+            </tr> 
+            <tr class="align_left">
+              <td class="align_left"><label>Complemento<label></td>
+              <td class="align_left">
+                <%= text_field_tag :complemento ,  @assistido.complemento , size: 30 %>
+              </td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Bairro<label></td>
+              <td class="align_left">
+                <%= text_field_tag :bairro, @assistido.bairro %>
+              </td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Cidade/UF<label></td>
+              <td class="align_left">
+                <%= select_tag :cidade, options_for_select(listaCidades.map{|c| [c.uf+" - "+c.nome, c.id]}, selected: @cidade), include_blank: true %>
+              </td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Telefone<label></td>
+              <td class="align_left">
+                <%= text_field_tag :telefone, @assistido.telefone, class: "telefone" %>
+              </td>
+            </tr>   
+            <tr class="align_left">
+              <td class="align_left"><label>Telefone Dois<label></td>
+              <td class="align_left">
+                <%= text_field_tag :telefone_dois, @assistido.telefone_dois, class: "telefone" %>
+              </td>
+            </tr>   
+            <tr class="align_left">
+              <td class="align_left"><label>Telefone Tres<label></td>
+              <td class="align_left">
+                <%= text_field_tag :telefone_tres, @assistido.telefone_tres, class: "telefone" %>
+              </td>
+            </tr>               
+            <tr class="align_left">
+              <td class="align_left"><label>Contato Nome<label></td>
+              <td class="align_left">
+                <%= text_field_tag :contato_nome, @assistido.contato_nome %>
+              </td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Contato Telefone<label></td>
+              <td class="align_left">
+                <%= text_field_tag :contato_telefone, @assistido.contato_telefone, class: "telefone" %>
+              </td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Contato Vinculo<label></td>
+              <td class="align_left">
+                <%= text_field_tag :contato_tipo_vinculo, @assistido.contato_tipo_vinculo %>
+              </td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Contato Email<label></td>
+              <td class="align_left">
+                <%= text_field_tag :contato_email, @assistido.contato_email, size: 30  %>
+              </td>
+            </tr>                                                          
+          </table>          
+          <%= hidden_field_tag :assistido_id, @assistido.id %>            
+          <%= button_to 'Salvar' %>
+        <% end %>
+      </div> 
+
+      <div class="panel-body" id="dados_pessoais">
+        <h4>Dados Pessoais</h4>
+          <table class="area_100">
+            <tr>
+              <td class="dados_pessoais_label"><label>Sexo<label></td>
+              <td class="align_left" id="sexo_label"><%= @assistido.sexo %></td>
+            </tr>              
+            <tr>
+              <td class="dados_pessoais_label"><label>Profissão<label></td>
+              <td class="align_left" id="profissao_label">
+                <%= @assistido.profissao %>
+              </td>
+            </tr>
+            <tr>
+              <td class="dados_pessoais_label"><label>Data de Nascimento<label></td>
+              <td class="align_left" id="data_nascimento_label">
+                <% if @assistido.data_nascimento %>
+                  <%= (l @assistido.data_nascimento) %>
+                <% end %>                  
+              </td>
+            </tr>
+            <tr>
+              <td class="dados_pessoais_label"><label>Nome do Pai<label></td>
+              <td class="align_left" id="nome_pai_label">
+                <%= @assistido.nome_pai %>
+              </td>
+            </tr>              
+            <tr>
+              <td class="dados_pessoais_label"><label>Nome da Mãe<label></td>
+              <td class="align_left"  id="nome_mae_label">
+                <%= @assistido.nome_mae %>
+              </td>
+            </tr>
+
+            <tr class="align_left">
+              <td class="align_left"><label>CPF<label></td>
+              <td class="align_left" id="cpf_label"><%= @assistido.cpf %></td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>RG/Orgão Emissor<label></td>
+              <td class="align_left" id="rg_orgao_label">
+                <%= @assistido.rg %>/<%= @assistido.orgao_emissor %>
+              </td>
+            </tr>            
+            <tr class="align_left">
+              <td class="align_left"><label>Estado Civil<label></td>
+              <td class="align_left" id="estado_civil_label"><%= @assistido.estado_civil %></td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Nacionalidade<label></td>
+              <td class="align_left" id="nacionalidade_label"><%= @assistido.nacionalidade %></td>
+            </tr> 
+
+            <tr class="align_left">
+              <td class="align_left"><label>CEP<label></td>
+              <td class="align_left" id="cep_label"><%= @assistido.cep %></td>
+            </tr>            
+            <tr class="align_left">
+              <td class="align_left"><label>Logradouro/Numero<label></td>
+              <td class="align_left" id="logradouro_numero_label">
+                <%= @assistido.logradouro %>/<%= @assistido.numero %>
+              </td>
+            </tr> 
+            <tr class="align_left">
+              <td class="align_left"><label>Complemento<label></td>
+              <td class="align_left" id="complemento_label">
+                <%= @assistido.complemento %>
+              </td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Bairro<label></td>
+              <td class="align_left" id="bairro_label"><%= @assistido.bairro %></td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Cidade/UF<label></td>
+              <td class="align_left" id="cidade_uf_label">
+                <%= @assistido.cidade %> / <%= @assistido.uf %>
+              </td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Telefone<label></td>
+              <td class="align_left" id="telefone_label"><%= @assistido.telefone %></td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Telefone Dois<label></td>
+              <td class="align_left" id="telefone_dois_label"><%= @assistido.telefone_dois %></td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Telefone Tres<label></td>
+              <td class="align_left" id="telefone_tres_label"><%= @assistido.telefone_tres %></td>
+            </tr>                                          
+            <tr class="align_left">
+              <td class="align_left"><label>Contato Nome<label></td>
+              <td class="align_left" id="contato_nome_label"><%= @assistido.contato_nome %></td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Contato Telefone<label></td>
+              <td class="align_left" id="contato_telefone_label"><%= @assistido.contato_telefone %></td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Contato Tipo Vinculo<label></td>
+              <td class="align_left" id="contato_tipo_vinculo_label"><%= @assistido.contato_tipo_vinculo %></td>
+            </tr>
+            <tr class="align_left">
+              <td class="align_left"><label>Contato Email<label></td>
+              <td class="align_left" id="contato_email_label"><%= @assistido.contato_email %></td>
+            </tr>                                   
+        </table>
+      </div>
+    </div>
+</div>
+
+
+<div class="informacoes_socioeconomicas" class="bloco_info margem_bloco_info_anterior" id="informacoes_socioeconomicas">
+  <div id="painel_socioeconomicas" class="panel panel-success">
+    <div class="panel-heading">
+      <h4>
+        <%= image_tag "glyphicons/glyphicons_003_user.png" %>  
+        Informações Socioeconômicas
+        <%= image_tag "glyphicons/glyphicons_150_edit.png", class: "botao botao_hide", id: "editar", onclick: "editar_bloco('socioeconomicas')" %>           
+        <%= image_tag "glyphicons/glyphicons_369_collapse_top.png", class: "botao botao_direita", id: "minimizar", onclick: "minimizar_bloco('socioeconomicas',this)" %>
+      </h4>
+    </div>
+      <div class="panel-body ocultar" id="socioeconomicas_form">
+        <div class="center">
+          <p class="alert alert-error ocultar" id="erro_update_dados_pessoais"></p>
+        </div>
+        <%= form_tag "/update_socioeconomicas", remote: true do %>
+          <h4>Informações Socioeconômicas</h4>
+          <table>           
+            <tr>
+              <td class="dados_pessoais_label"><label>Escolaridade<label></td>
+              <td class="align_left">
+                <%= select_tag :escolaridade, options_for_select(["","Superior Completo", "Superior Incompleto", "Ensino Médio Completo", "Ensino Médio Incompleto", "Ensino Fundamental Completo", "Ensino Fundamental Incompleto", "Não Alfabetizado(a)"], @socioe.nivel_escolaridade) %>
+              </td>  
+            </tr>              
+            <tr>
+              <td class="dados_pessoais_label"><label>Usa Drogas<label></td>
+              <td class="align_left">
+                <%= check_box_tag :drogas, true, @socioe.usa_drogas %>
+                <div class="field ocultar" id="hiden_drogas">
+                  <%= text_area_tag :drogas_descricao, @socioe.usa_drogas_descricao, size: "30x1", placeholder: "Descrição." %><br>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="dados_pessoais_label"><label>Aceita Tratamento<label></td>
+              <td class="align_left">              
+                <%= check_box_tag :tratamento, true, @socioe.aceita_tratamento %>
+                <div class="field ocultar" id="hiden_tratamento">
+                  <% if @socioe.aceita_tratamento_descricao == "Com internação" %>
+                    <%= radio_button_tag :tratamento_descricao, "Com internação", true %><label>Com internação</label>
+                    <%= radio_button_tag :tratamento_descricao, "Sem internação" %><label>Sem internação</label>
+                  <% else %>
+                    <%= radio_button_tag :tratamento_descricao, "Com internação" %><label>Com internação</label>
+                    <%= radio_button_tag :tratamento_descricao, "Sem internação", true %><label>Sem internação</label>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="dados_pessoais_label"><label>Problema de Saúde<label></td>
+              <td class="align_left">              
+                <%= check_box_tag :saude, true, @socioe.problema_sauda %>
+                <div class="field ocultar" id="hiden_saude">
+                  <%= text_area_tag :saude_descricao, @socioe.problema_sauda_descricao, size: "30x1", placeholder: "Descrição." %><br>
+                </div>
+              </td>
+            </tr>              
+            <tr>
+              <td class="dados_pessoais_label"><label>Realiza Atividades<label></td>
+              <td class="align_left">
+                <%= check_box_tag :atividades, true, @socioe.incluido_atividade_presidio %>
+                <div class="field ocultar" id="hiden_atividades">
+                  <%= text_area_tag :atividades_descricao, @socioe.incluido_atividade_presidio_descricao, size: "30x1", placeholder: "Descrição." %><br>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="dados_pessoais_label"><label>Era Empregado<label></td>
+              <td class="align_left">
+                <%= check_box_tag :empregado, true, @socioe.trabalhava_antes_prisao %>
+                <div class="field ocultar" id="hiden_empregado">
+                <%= text_area_tag :empregado_descricao, @socioe.trabalhava_antes_prisao_descricao, size: "30x1", placeholder: "Descrição." %><br>
+              </div>
+              </td>
+            </tr>            
+            <tr>
+              <td class="dados_pessoais_label"><label>Renda Familiar<label></td>
+              <td class="align_left">
+                <%= select_tag :renda, options_for_select(["", "Menos de 1 Salário", "Um Salário", "Entre 1 e 2 Salários", "Entre 2 e 5 salários", "Mais de 5 Salários"], @socioe.renda_familiar) %>                
+                <br>                   
+              </td>
+            </tr> 
+          </table>          
+          <%= hidden_field_tag :socioe_id, @socioe.id %>            
+          <%= button_to 'Salvar' %>
+        <% end %>
+      </div> 
+
+      <div class="panel-body" id="socioeconomicas">
+        <table>           
+          <tr>
+            <td class="dados_pessoais_label"><label>Escolaridade<label></td>
+            <td class="align_left" id="escolaridade_label">
+              <%= @socioe.nivel_escolaridade %>
+            </td>
+          </tr>              
+          <tr>
+            <td class="dados_pessoais_label"><label>Usa Drogas<label></td>
+            <td class="align_left" id="drogas_label">
+              <%= check_box_tag :drogas, "", @socioe.usa_drogas, disabled: true %>
+            </td>
+          </tr>
+          <tr>
+            <td class="dados_pessoais_label"><label>- Descrição<label></td>
+            <td class="align_left" id="drogas_descricao_label">
+              <%= @socioe.usa_drogas_descricao %>
+            </td>
+          </tr>
+          <tr>
+            <td class="dados_pessoais_label"><label>Aceita Tratamento<label></td>
+            <td class="align_left" id="tratamento_label">            
+              <%= check_box_tag :tratamento, "", @socioe.aceita_tratamento, disabled: true %>        
+            </td>
+          </tr>
+          <tr>
+            <td class="dados_pessoais_label"><label>- Descrição<label></td>
+            <td class="align_left" id="tratamento_descricao_label">
+              <%= @socioe.aceita_tratamento_descricao %>
+            </td>
+          </tr>
+          <tr>
+            <td class="dados_pessoais_label"><label>Problema de Saúde<label></td>
+            <td class="align_left" id="saude_label">            
+              <%= check_box_tag :saude, "", @socioe.problema_sauda, disabled: true %>              
+            </td>
+          </tr>
+          <tr>
+            <td class="dados_pessoais_label"><label>- Descrição<label></td>
+            <td class="align_left" id="saude_descricao_label">
+              <%= @socioe.problema_sauda_descricao %>
+            </td>
+          </tr>
+          <tr>
+            <td class="dados_pessoais_label"><label>Realiza Atividades<label></td>
+            <td class="align_left" id="atividades_label">            
+              <%= check_box_tag :atividades, "", @socioe.incluido_atividade_presidio, disabled: true %>
+            </td>
+          </tr>
+          <tr>
+            <td class="dados_pessoais_label"><label>- Descrição<label></td>
+            <td class="align_left" id="atividades_descricao_label">
+              <%= @socioe.incluido_atividade_presidio_descricao %>
+            </td>
+          </tr>
+          <tr>
+            <td class="dados_pessoais_label"><label>Era Empregado<label></td>
+            <td class="align_left" id="empregado_label">            
+              <%= check_box_tag :empregado, "", @socioe.trabalhava_antes_prisao, disabled: true %>
+            </td>
+          </tr>
+          <tr>
+            <td class="dados_pessoais_label"><label>- Descrição<label></td>
+            <td class="align_left" id="empregado_descricao_label">
+              <%= @socioe.trabalhava_antes_prisao_descricao %>
+            </td>
+          </tr>            
+          <tr>
+            <td class="dados_pessoais_label"><label>Renda Familiar<label></td>
+            <td class="align_left" id="renda_label">            
+              <%= @socioe.renda_familiar %>              
+            </td>
+          </tr> 
+        </table>     
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="documentos_pessoais" class="bloco_info margem_bloco_info_anterior">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h4>
+        <%= image_tag "glyphicons/glyphicons_144_folder_open.png" %>  
+        Documentos Pessoais
+
+        <%= link_to(image_tag("glyphicons/glyphicons_190_circle_plus.png", alt: "Adicionar Documento Pessoal", title: "Adicionar Documento Pessoal"), "/documentos/new?tipo=1", id: "editar", class: "botao botao_hide") %>
+
+        <%= image_tag "glyphicons/glyphicons_369_collapse_top.png", class: "botao botao_direita", id: "minimizar", onclick: "minimizar_bloco('documentos_pessoais',this)" %>
+      </h4>Clique no documento para iniciar o download.
+    </div>
+    <div class="panel-body" id="documentos_pessoais">
+      <table class="area_100">
+        <% @documentos_pessoais.each do |documento| %>
+          <tr>
+            <td class="label_icon_documentos">
+              <%= image_tag "glyphicons/glyphicons_036_file.png" %>
+            </td>
+            <td class="align_left">
+              <%= form_tag "/download" do %>
+                <%= hidden_field_tag :documento, documento.id %>            
+                <%= button_to documento.nome_url, {:controller => :assistidos, :action => :download }, class: "margem_documento_top" %>
+              <% end %>                
+            </td>
+            <td class="align_left">
+              <%= tamanho_arquivo("public/documentos/#{documento.assistido_id}/pessoais/#{documento.nome_url}") %>
+            </td>
+            <td class="align_left ocultar" id="btn_exluir_doc_pes">
+              <%= link_to documento, method: :delete, data: { confirm: 'Tem certeza que deseja excluir este documento?' } do %>         
+                <%= image_tag "glyphicons/glyphicons_197_remove.png" %>
+              <% end %>       
+            </td>                                           
+          </tr>
+        <% end %>             
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="documentos_extrajudiciais" class="bloco_info margem_bloco_info_anterior">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h4>
+        <%= image_tag "glyphicons/glyphicons_144_folder_open.png" %>  
+        Documentos Extrajudiciais
+
+        <%= link_to(image_tag("glyphicons/glyphicons_190_circle_plus.png", alt: "Adicionar Documentos Extrajudiciais", title: "Adicionar Documentos Extrajudiciais"), "/documentos/new?tipo=2", id: "editar", class: "botao botao_hide") %>
+
+        <%= image_tag "glyphicons/glyphicons_369_collapse_top.png", class: "botao botao_direita", id: "minimizar", onclick: "minimizar_bloco('documentos_extrajudiciais',this)" %>
+      </h4> Clique no documento para iniciar o download.
+      </div>
+      <div class="panel-body" id="documentos_extrajudiciais">
+        <table class="area_100">
+        <% @documentos_extrajudiciais.each do |documento| %>
+          <tr>
+            <td class="label_icon_documentos">
+              <%= image_tag "glyphicons/glyphicons_036_file.png" %>
+            </td>
+            <td class="align_left">
+              <%= form_tag "/download" do %>
+                <%= hidden_field_tag :documento, documento.id %>            
+                <%= button_to documento.nome_url, {:controller => :assistidos, :action => :download }, class: "margem_documento_top" %>
+              <% end %>
+            </td>
+            <td class="align_left">
+               <%= tamanho_arquivo("public/documentos/#{documento.assistido_id}/extrajudiciais/#{documento.nome_url}")%>
+            </td> 
+            <td class="align_left ocultar" id="btn_exluir_doc_extra">
+              <%= link_to documento, method: :delete, data: { confirm: 'Tem certeza que deseja excluir este documento?' } do %>         
+                <%= image_tag "glyphicons/glyphicons_197_remove.png" %>
+              <% end %>       
+            </td>                                        
+          </tr>
+        <% end %>               
+        </table>
+      </div>
+    </div>
+</div> 
+
+<%= link_to image_tag("seta-voltar.png", :alt => "Voltar", size: 25), :back %>
+<%= link_to 'Voltar', :back %>

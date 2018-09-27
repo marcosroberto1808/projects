@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Inquérito policial:</strong>
+  <%= @infracao.inquerito_policial_id %>
+</p>
+
+<p>
+  <strong>Descrição código:</strong>
+  <%= @infracao.descricao_codigo %>
+</p>
+
+<p>
+  <strong>Descrição nome:</strong>
+  <%= @infracao.descricao_nome %>
+</p>
+
+<%= link_to 'Edit', edit_infracao_path(@infracao) %> |
+<%= link_to 'Back', infracoes_path %>

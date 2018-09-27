@@ -1,0 +1,15 @@
+<p> <strong>Assinatura já cadastrada.</strong></p> 
+
+<img src="/images/signatures/<%= get_cpf %>/<%= @assinatura.url %>" alt="Assinatura"> 
+
+<br>
+<br>
+
+<%= link_to 'Deletar', @assinatura, method: :delete, data: { confirm: 'Tem certeza?' } %>
+
+<%= link_to @assinatura, method: :delete, data: { confirm: 'Tem certeza?' } do %>        	
+		<%= image_tag "glyphicons/glyphicons_197_remove.png" %>
+<% end %>
+
+<br>
+<br>

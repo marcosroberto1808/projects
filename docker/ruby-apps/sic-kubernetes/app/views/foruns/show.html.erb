@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Foro</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-6">
+        <p>
+          <strong>Nome:</strong>
+          <%= @forum.nome %>
+        </p>
+
+        <p>
+          <strong>Cidade:</strong>
+          <%= @forum.cidade_nome %>
+        </p>
+
+        <p>
+          <strong>UF:</strong>
+          <%= @forum.uf %>
+        </p>
+
+<%= link_to 'Editar', edit_forum_path(@forum) , :class=> "btn btn-primary"%> |
+<%= link_to 'Voltar', foruns_path, :class=> "btn btn-primary" %>
+    </div>
+  </div>
+</div>

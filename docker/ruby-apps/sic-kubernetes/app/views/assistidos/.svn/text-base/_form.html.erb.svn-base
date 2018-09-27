@@ -1,0 +1,231 @@
+<script>
+  $(document).ready(function(){
+    $('#assistido_uf').change(function(){
+      $.ajax({
+        url: "/select_cidade",
+        type: "GET",
+        data: {uf : $('#assistido_uf option:selected').val() },
+      })
+    });
+  });
+</script>
+
+  <%= stylesheet_link_tag "assistidos" %>
+  <%= javascript_include_tag "jquery.mask", "mascaras", "datepicker","informacoes_socioeconomicas_radio_buttons" %>
+
+  <style>
+  table,th,td{
+    background-color:transparent;
+  }
+  th,td{
+    text-align: left;
+    vertical-align: top;
+    width: 50%;
+  }
+  </style>
+
+  <%= form_for(@assistido) do |f| %>
+    <table>
+      <tr>
+        <td>
+          <% if @assistido.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@assistido.errors.count, "erro(s)") %> impediram este perfil de ser salvo:</h2>
+
+              <ul>
+              <% @assistido.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <%= f.label :nome %><br>
+            <%= f.text_field :nome, size: 40 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :sexo %><br>
+            <%= f.radio_button :sexo, "Masculino" %> Masculino
+            <%= f.radio_button :sexo, "Feminino" %> Feminino
+          </div>  
+
+          <div class="field">
+            <%= f.label :estado_civil, "Estado Civil" %><br>
+            <%= f.select :estado_civil, options_for_select(["", "Casado", "Solteiro"]) %>
+          </div>
+
+          <div class="field">
+            <label>RG</label>/<label>Orgão Emissor</label><br>
+            <%= f.text_field :rg %>/<%= f.text_field :orgao_emissor, size: 5 %>
+          </div>
+
+          <div class="field">
+            <label>CPF</label><br>
+            <%= f.text_field :cpf, class: "cpf", maxlength: 11 %>
+          </div>
+
+          <div class="field">
+            <label>Profissão</label><br>
+            <%= f.text_field :profissao, size: 30 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :data_nascimento, "Data de Nascimento" %><br>
+            <%= f.text_field :data_nascimento, size: 10, class: "campo_data" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :nome_pai, "Nome do Pai" %><br>
+            <%= f.text_field :nome_pai, size: 40 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :nome_mae, "Nome da Mãe" %><br>
+            <%= f.text_field :nome_mae, size: 40 %>
+          </div>  
+
+          <div class="field">
+            <%= f.label :nacionalidade %><br>
+            <%= f.text_field :nacionalidade, value: "Brasileiro", size: 10 %>
+          </div>  
+
+          <div class="field">
+            <%= f.label :cidade, "Cidade/UF" %><br>
+            <%= f.select :cidade, listaCidades.map{|c| [c.nome+" - "+c.uf, c.id]}, selected: @cidade, include_blank: true %>
+          </div>
+
+          <div class="field">
+            <label>CEP</label><br>
+            <%= f.text_field :cep, size: 10, class: "cep", maxlength: 9 %>
+          </div>
+          
+          <div class="field">
+            <%= f.label :bairro %><br>
+            <%= f.text_field :bairro %>
+          </div>
+
+          <div class="field">
+            <%= f.label :logradouro %>/<%= f.label :numero %><br>
+            <%= f.text_field :logradouro, size: 40 %>/<%= f.text_field :numero, size: 5 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :complemento %><br>
+            <%= f.text_field :complemento, size: 40 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :telefone %><br>
+            <%= f.text_field :telefone, class: "telefone", size: 13 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :telefone_dois, "Telefone Dois" %><br>
+            <%= f.text_field :telefone_dois, class: "telefone", size: 13 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :telefone_tres, "Telefone Tres" %><br>
+            <%= f.text_field :telefone_tres, class: "telefone", size: 13 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :contato_nome, "Contato Nome" %><br>
+            <%= f.text_field :contato_nome, size: 40  %>
+          </div>
+
+          <div class="field">
+            <%= f.label :contato_telefone, "Contato Telefone" %><br>
+            <%= f.text_field :contato_telefone, class: "telefone", size: 13 %>
+          </div>
+
+          <div class="field">
+            <%= f.label :contato_tipo_vinculo, "Contato Tipo Vinculo" %><br>
+            <%= f.text_field :contato_tipo_vinculo %>
+          </div>  
+
+          <div class="field">
+            <%= f.label :contato_email, "Contato Email" %><br>
+            <%= f.text_field :contato_email, size: 30 %>
+          </div>
+
+          <div class="field">
+            <label>Observação</label><br>
+            <%= f.text_area :observacao, cols: 60, rows: 5 %>
+          </div>
+        </td>
+
+        <!-- Form das informações socioeconômicas -->
+        <td>
+          <h4>Informações Socioeconômicas</h4>
+          <div class="field">
+            <label>Nível de Escolaridade</label><br>
+            <%= select_tag :escolaridade, options_for_select(["", "Superior Completo", "Superior Incompleto", "Ensino Médio Completo", "Ensino Médio Incompleto", "Ensino Fundamental Completo", "Ensino Fundamental Incompleto", "Não Alfabetizado(a)"]) %>
+          </div>
+
+          <div class="field">
+            <%= check_box_tag :drogas %> <label>Usa drogas</label>
+          </div>
+
+          <div class="field ocultar" id="hiden_drogas">
+            <%= text_area_tag :drogas_descricao, "", size: "30x1", placeholder: "Descrição" %><br>
+          </div>
+
+          <div class="field">
+            <%= check_box_tag :tratamento %> <label>Aceita tratamento</label><br>
+          </div>
+
+          <div class="field ocultar" id="hiden_tratamento">
+            <%= radio_button_tag :tratamento_descricao, "Com internação", true %><label>Com internação</label>
+            <%= radio_button_tag :tratamento_descricao, "Sem internação" %><label>Sem internação</label>
+          </div>
+
+          <div class="field">
+            <%= check_box_tag :saude %> <label>Problema de saúde</label><br>
+          </div>
+
+          <div class="field ocultar" id="hiden_saude">
+            <%= text_area_tag :saude_descricao, "", size: "30x1", placeholder: "Descrição" %><br>
+          </div>
+
+          <div class="field">
+            <%= check_box_tag :atividades %> <label>Incluido em atividade no presídio</label><br>
+          </div>
+
+          <div class="field ocultar" id="hiden_atividades">
+            <%= text_area_tag :atividades_descricao, "", size: "30x1", placeholder: "Descrição" %><br>
+          </div>
+
+          <div class="field">
+            <%= check_box_tag :empregado %> <label>Trabalhava antes da prisão</label><br>
+          </div>
+
+          <div class="field ocultar" id="hiden_empregado">
+            <%= text_area_tag :empregado_descricao, "", size: "30x1", placeholder: "Descrição" %><br>
+          </div>
+
+          <div class="field">
+            <%= label_tag :renda_familiar %><br>
+            <%= select_tag :renda, options_for_select(["", "Menos de 1 Salário", "Um Salário", "Entre 1 e 2 Salários", "Entre 2 e 5 salários", "Mais de 5 Salários"]) %>
+          </div>
+
+        </td>
+      </tr>
+    </table>
+
+    <div class="actions">
+      <div style="float:left;">
+        <%= f.submit "Salvar", class: "btn btn-success" %> 
+      </div>
+  <% end %> 
+     
+      <div style="float:left; margin-left: 5px;">    
+        <%= link_to 'Cancelar', :back, class: "btn btn-default" %>
+      </div>
+    </div>
+
+    <br>
+    <br>    
+</div>

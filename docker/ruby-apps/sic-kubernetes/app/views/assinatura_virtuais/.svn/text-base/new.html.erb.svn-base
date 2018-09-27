@@ -1,0 +1,11 @@
+<h1>Cadastro de Assinatura Virtual</h1>
+
+<% if @assinatura == nil %>
+	<%= render 'form' %>
+<% else %>
+	<%= render 'show' %>
+<% end %>
+
+
+<%= link_to image_tag("seta-voltar.png", :alt => "Voltar", size: 25), "/" %>
+<%= link_to 'Voltar', "/" %>

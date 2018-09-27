@@ -1,0 +1,12 @@
+<%= stylesheet_link_tag params[:controller] %>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="logo-defensoria center" style="vertical-align: middle;">
+	<%= image_tag "img-bem-vindo.png"  %>
+</div>

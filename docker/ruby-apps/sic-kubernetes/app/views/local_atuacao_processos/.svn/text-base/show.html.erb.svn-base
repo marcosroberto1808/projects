@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Processo judicial:</strong>
+  <%= @local_atuacao_processo.processo_judicial_id %>
+</p>
+
+<%= link_to 'Edit', edit_local_atuacao_processo_path(@local_atuacao_processo) %> |
+<%= link_to 'Back', local_atuacao_processos_path %>

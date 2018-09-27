@@ -1,0 +1,17 @@
+<p>
+  <strong>Nome:</strong>
+  <%= @origem_inquerito.nome %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @origem_inquerito.cidade.nome %>
+</p>
+
+<p>
+  <strong>UF:</strong>
+  <%= @origem_inquerito.uf %>
+</p>
+
+<%= link_to 'Editar', edit_origem_inquerito_path(@origem_inquerito) %> |
+<%= link_to 'Voltar', origem_inqueritos_path %>

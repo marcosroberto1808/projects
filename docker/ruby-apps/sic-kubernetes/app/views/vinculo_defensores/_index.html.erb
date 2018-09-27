@@ -1,0 +1,24 @@
+<div class="panel-body" id="vinculacao_defensores">
+  <% @vinculo_defensores = VinculoDefensor.where(assistido_id: assistido_id) %>
+  <% @vinculo_defensores.each do |vinculo| %>
+      <table id="vinculacao_defensores">
+        <tr>
+          <td width="25%">Assistido: <b><%= get_assistido(vinculo.assistido_id) %></b></td>
+          <td width="25%">Defensor: <b><%= get_defensor_nome_cpf(vinculo.defensor_cpf) %></b></td>
+          <td width="20%">Acompanhar Processo: <b><%= get_status_processo_vinculo(vinculo.acompanhar_processo) %></b></td>
+          <td width="20%">Acompanhar Inquérito: <b><%= get_status_processo_inquerito(vinculo.acompanhar_inquerito) %></b></td>
+
+          <td width="10%" class="align_left ocultar" id="btn_exluir_doc_pes">
+            <%= link_to(image_tag("glyphicons/glyphicons_029_notes_2.png", alt: "Editar", title: "Editar"),
+                        {controller: "vinculo_defensores", action: "edit", id: vinculo.id,
+                         assistido_id: params[:id]}, :method=> :get, class: "botao") %>
+
+            <%= link_to (image_tag "glyphicons/glyphicons_197_remove.png", alt: "Apagar", titile: "Apagar"),
+                        {controller: "vinculo_defensores", action: "destroy",id: vinculo.id,
+                         assistido_id: params[:id]}, :method => :delete,
+                        data: { confirm: 'Tem certeza que deseja excluir este vinculo?' } %>
+          </td>
+        </tr>
+      </table>
+  <% end %>
+</div>

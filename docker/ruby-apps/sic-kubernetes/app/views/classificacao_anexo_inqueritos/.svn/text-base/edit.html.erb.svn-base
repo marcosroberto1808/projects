@@ -1,0 +1,6 @@
+<h1>Editar classificação de Anexo de Inquerito</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Exibir', @classificacao_anexo_inquerito %> |
+<%= link_to 'Voltar', classificacao_anexo_inqueritos_path %>
