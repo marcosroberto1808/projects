@@ -1,0 +1,228 @@
+
+/** Login */
+
+body.login {
+	margin-top: 0px;
+	background: #FFF;
+}
+
+.login #wrapper {
+	padding-left: 0px;
+}
+
+
+/** Sistemas */
+
+body.sistemas #wrapper {
+	padding-left: 0px;
+}
+
+/** Formulario */
+
+.form-control-data{
+	width: 150px;
+}
+
+/** Topo **/
+
+header#topo {
+	background-image: url(../images/topo_INTRANET.jpg);
+	min-height: 130px;
+}
+
+#page-wrapper {
+	padding-top: 100px;
+}
+
+.shadetabs li a button {
+	background:none; 
+	border:none; 
+	font-size:10px; 
+	padding:0px 10px 0px 20px;
+}
+
+ul.shadetabs {
+	margin-bottom: 18px;
+}
+
+ul.shadetabs li {
+	list-style: none;
+}
+
+ul.shadetabs li a {
+	padding: 10px;
+    border-bottom-color: white;
+    background-color: #CDE7CC;
+}
+
+section.content{
+	margin-top: -12px;
+	padding: 20px 10px;
+	padding-bottom: 20px;
+	background-color: #CDE7CC;
+}
+
+form {
+	padding: 10px 0px;
+}
+
+.page-header {
+	margin-top: 0px;
+}
+
+.no-padding {
+	padding: 0px !important;
+}
+
+.no-padding-x {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+.no-padding-y {
+	padding-top:  0px !important;
+	padding-bottom:  0px !important;
+}
+
+.clear {
+	clear: both;
+}
+
+
+
+.hiden {
+	display: none;
+}
+
+
+.btn {
+	height: auto; 
+}
+
+.margin-top {
+	margin-top: 15px;
+} 
+
+.absolute-1 {
+	position: absolute;
+	z-index: 5;
+}
+
+
+/** Paginaçao */
+
+div.pagination {
+	width: 100%;
+	text-align: center;
+}
+
+em.current {
+	line-height: 31px;
+}
+
+.pagination > a, .pagination > span {
+	line-height: auto;
+}
+
+.pagination > a:first-child, .pagination > span:first-child {
+	margin-left: 0;
+}
+
+/** Tabs */
+
+div.tabs ul li {
+	margin: 0px !important;
+	border-radius: 0px !important;
+	background: #C9DECB !important;
+}
+
+/** Painel */
+
+.panel-content {
+	padding: 15px 0px;
+}
+
+
+/** Almoxarifado */
+
+#almoxarifado .actions {
+	margin-top: 10px;
+}
+
+/** Menu */
+
+.dropdown-menu {
+	width: 100%;
+}
+
+.dropdown-menu .dropdown .dropdown-menu{
+    left: 100%;
+    top: -5px;
+}
+
+
+/** Notificaçoes */
+
+.switch-element {
+	cursor: pointer;
+}
+
+.notificacoes-content {
+	background-color: white;
+    width: 450px;
+    min-width: 300px;
+    position: absolute;
+    right: 37px;
+    margin-top: 25px;
+    z-index: 300;
+    height: 260px;
+    border: 1px solid #59775A;
+}
+
+
+/** icones */
+
+td.icon-width {
+	width: 40px;
+}
+
+.intra-icon {
+	background-image: url('../images/dpge-ico.png');
+    font-size: 0px;
+    height: 32px;
+    width: 32px;
+    padding: 11px;
+    background-repeat: no-repeat;
+}
+
+.icon-edit {
+    background-position: 1px 0px;
+}
+
+.icon-edit-off {
+    background-position: -20px 0px;
+}
+
+.icon-exibir {
+    background-position: -78px 0px;
+}
+
+.icon-excluir {
+    background-position: -40px 0px;
+}
+
+.icon-excluir-off {
+    background-position: -59px 0px;
+}
+
+.icon-cadeado-aberto {
+    background-position: -121px 0px;
+}
+
+.icon-cadeado-fechado {
+    background-position: -144px 0px;
+}
+
+.icon-cadeado-off {
+    background-position: -164px 0px;
+}

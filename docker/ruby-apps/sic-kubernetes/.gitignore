@@ -17,7 +17,7 @@
 /app/assets/**/*
 .idea/
 
-public
+#public
 app/assets/*
 /app/assets
 Gemfile.lock
