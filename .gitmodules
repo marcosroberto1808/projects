@@ -1,0 +1,3 @@
+[submodule "docker/ruby-apps/sic-kubernetes"]
+	path = docker/ruby-apps/sic-kubernetes
+	url = http://gitlab.defensoria.ce.def.br/marcos.roberto/sic-kubernetes.git
