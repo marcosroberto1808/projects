@@ -1,0 +1,2 @@
+# Ignore app-data folder auto-genereated by compose
+*-data*

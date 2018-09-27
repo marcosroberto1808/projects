@@ -2,8 +2,11 @@ version: '3'
 
 services:
   sic-app:
+    external_links:
+      - postgres-example_sic-database_1
     ports:
       - "3000:3000"
+    network_mode: bridge  
     volumes: 
     - ../sic-data/template_central:/home/AppData/template_central
     - ../sic-data/logs:/home/AppData/logs
@@ -19,7 +22,7 @@ services:
         DB_NAME: sic
         DB_USER: postgres
         DB_PASS: postgres
-        DB_HOST: 192.168.0.114
+        DB_HOST: postgres-example_sic-database_1
         PORTAL_DB_USER: postgres
         PORTAL_DB_PASS: postgres
-        PORTAL_DB_HOST: 192.168.0.114
+        PORTAL_DB_HOST: postgres-example_sic-database_1

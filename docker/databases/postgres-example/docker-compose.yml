@@ -4,6 +4,7 @@ services:
   sic-database:
     ports:
       - "5499:5432"
+    network_mode: bridge   
     volumes: 
       - ../database_dumps:/database_dumps
     environment:

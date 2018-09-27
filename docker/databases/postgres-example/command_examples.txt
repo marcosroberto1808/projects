@@ -5,4 +5,4 @@ docker rm $(docker ps -aq) ; docker rmi $(docker images -aq) --force  # LINUX TE
 # Starting steps to run with docker-compose and restore the dump
 docker-compose up -d
 docker-compose exec sic-database pg_restore -U postgres -d sic /database_dumps/sic_full.backup
-docker-compose exec sic-database pg_restore -U postgres -d db_portal_digital /database_dumps/db_portal_digital_full.backup
+docker-compose exec sic-database pg_restore -U postgres -d db_portal_digital /database_dumps/db_portal_digital_SIC_SCHEMAS.backup
