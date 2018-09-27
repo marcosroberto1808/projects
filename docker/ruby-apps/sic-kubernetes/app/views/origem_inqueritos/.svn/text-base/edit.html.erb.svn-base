@@ -1,6 +1,0 @@
-<h1>Editar Origem de Inquperito</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Exibir', @origem_inquerito %> |
-<%= link_to 'Voltar', origem_inqueritos_path %>

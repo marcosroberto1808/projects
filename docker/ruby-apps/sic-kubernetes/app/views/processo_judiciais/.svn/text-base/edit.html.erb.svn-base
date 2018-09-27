@@ -1,2 +1,0 @@
-<h1>Editar Processo Judicial</h1>
-<%= render 'form' %>

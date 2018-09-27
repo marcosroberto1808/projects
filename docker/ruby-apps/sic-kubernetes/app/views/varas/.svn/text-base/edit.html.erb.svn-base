@@ -1,6 +1,0 @@
-<h1>Editando Juízo</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Exibir', @vara %> |
-<%= link_to 'Voltar', varas_path %>

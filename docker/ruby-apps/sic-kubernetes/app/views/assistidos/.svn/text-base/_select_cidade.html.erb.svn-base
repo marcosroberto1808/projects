@@ -1,2 +1,0 @@
-<%= select_tag :assistido_uf, options_for_select(listaEstadosCadastrados.map{|c| [c.uf] }, selected: @uf) %> / 
-<%= select_tag :assistido_cidade, options_for_select(@cidades.map{|c| [c.nome]}) %>

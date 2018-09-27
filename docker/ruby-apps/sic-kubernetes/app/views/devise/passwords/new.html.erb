@@ -1,9 +1,0 @@
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-    <div class="div_campos">
-        <%= f.label :email, class: :email_label %>
-      <%= f.email_field :email, :autofocus => true %>
-      <%= f.hidden_field :ativo, value: true %>
-    </div>
-
-  <div><%= f.submit "Enviar", class: :btn %></div>
-<% end %>

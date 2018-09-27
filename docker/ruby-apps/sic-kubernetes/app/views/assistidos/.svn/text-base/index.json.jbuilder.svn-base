@@ -1,4 +1,0 @@
-json.array!(@assistidos) do |assistido|
-  json.extract! assistido, :id, :nome, :cpf, :estado_civil, :cep, :logradouro, :numero, :complemento, :bairro, :cidade, :uf, :profissao, :nome_social, :rg, :orgao_emissor, :data_nascimento, :nome_pai, :nome_mae, :nacionalidade, :telefone, :telefone_dois, :telefone_tres, :observacao, :contato_nome, :contato_telefone, :contato_tipo_vinculo, :contato_email, :resumo, :sexo
-  json.url assistido_url(assistido, format: :json)
-end

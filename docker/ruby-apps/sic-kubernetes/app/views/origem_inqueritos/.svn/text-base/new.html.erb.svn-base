@@ -1,5 +1,0 @@
-<h1>Nova Origem de Inquérito</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Voltar', origem_inqueritos_path %>

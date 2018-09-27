@@ -1,7 +1,0 @@
-<%= javascript_include_tag "autocompleta_assistido" %>
-
-<h1>Nova Notificação</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Voltar', "/" %>

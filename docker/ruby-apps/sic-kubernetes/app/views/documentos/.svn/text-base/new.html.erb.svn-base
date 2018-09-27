@@ -1,2 +1,0 @@
-<h1>Novo Documento</h1>
-<%= render 'form' %>

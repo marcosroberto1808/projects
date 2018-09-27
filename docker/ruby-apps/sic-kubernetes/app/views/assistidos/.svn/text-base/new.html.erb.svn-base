@@ -1,2 +1,0 @@
-<h1>Cadastrar Novo Perfil</h1>
-<%= render 'form' %>

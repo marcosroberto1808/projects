@@ -1,2 +1,0 @@
-<h1>Cadastrar Novo Processo</h1>
-<%= render 'form' %>

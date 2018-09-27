@@ -1,2 +1,0 @@
-<h1>Novo Andamento</h1>
-<%= render 'form' %>

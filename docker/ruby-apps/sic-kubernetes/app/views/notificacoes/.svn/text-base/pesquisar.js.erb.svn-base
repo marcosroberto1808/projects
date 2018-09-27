@@ -1,1 +1,0 @@
-$('#notificacoes_grid').html("<%= j (render 'pesquisar') %>");

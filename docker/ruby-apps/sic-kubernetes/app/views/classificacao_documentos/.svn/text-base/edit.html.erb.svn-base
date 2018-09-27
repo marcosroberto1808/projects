@@ -1,6 +1,0 @@
-<h1>Editar Classificação de Documento</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Exibir', @classificacao_documento %> |
-<%= link_to 'Voltar', classificacao_documentos_path %>

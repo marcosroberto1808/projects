@@ -1,40 +1,0 @@
-10
-
-dir
-395
-http://192.168.0.22:18080/svn/sistema_de_informacoes_criminais/trunk/sic/app/views/devise
-http://192.168.0.22:18080/svn/sistema_de_informacoes_criminais
-
-
-
-2014-07-11T09:10:13.761122Z
-86
-elano
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-bd330a21-5c6a-4e07-b04f-9b004d842cb8
-
-passwords
-dir
-
-sessions
-dir
-
-mailer
-dir
-
-registrations
-dir
-

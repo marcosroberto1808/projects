@@ -1,3 +1,0 @@
-<h1>Nova Classificação de Andamento</h1>
-<%= render 'form' %>
-<%= link_to 'Voltar', classificacao_andamentos_path %>

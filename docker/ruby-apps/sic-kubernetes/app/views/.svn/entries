@@ -1,106 +1,0 @@
-10
-
-dir
-395
-http://192.168.0.22:18080/svn/sistema_de_informacoes_criminais/trunk/sic/app/views
-http://192.168.0.22:18080/svn/sistema_de_informacoes_criminais
-
-
-
-2015-06-18T12:36:41.732802Z
-393
-elano
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-bd330a21-5c6a-4e07-b04f-9b004d842cb8
-
-devise
-dir
-
-colaboradores
-dir
-
-documentos
-dir
-
-processo_judiciais
-dir
-
-permissao_acessos
-dir
-
-eventos
-dir
-
-classificacao_documentos
-dir
-
-assistidos
-dir
-
-local_atuacao_processos
-dir
-
-home
-dir
-
-andamentos
-dir
-
-welcome
-dir
-
-cidades
-dir
-
-classificacao_andamentos
-dir
-
-situacoes
-dir
-
-layouts
-dir
-
-classificacao_anexo_inqueritos
-dir
-
-assinatura_virtuais
-dir
-
-origem_inqueritos
-dir
-
-notificacoes
-dir
-
-infracoes
-dir
-
-tipo_documentos
-dir
-
-informacao_socioeconomicas
-dir
-
-inquerito_policiais
-dir
-
-foruns
-dir
-
-varas
-dir
-

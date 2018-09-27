@@ -1,3 +1,0 @@
-class TipoDocumento < ActiveRecord::Base
-	has_many :classificacao_documentos
-end

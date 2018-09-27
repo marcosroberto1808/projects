@@ -1,6 +1,0 @@
-<h1>Editing permissao_acesso</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @permissao_acesso %> |
-<%= link_to 'Back', permissao_acessos_path %>

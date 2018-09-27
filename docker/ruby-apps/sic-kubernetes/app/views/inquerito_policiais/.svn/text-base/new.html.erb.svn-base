@@ -1,2 +1,0 @@
-<h1>Cadastrar Inquérito Policial</h1>
-<%= render 'form' %>

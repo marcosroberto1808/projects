@@ -1,6 +1,0 @@
-<h1>Editando Foro</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Exibir', @forum %> |
-<%= link_to 'Voltar', foruns_path %>

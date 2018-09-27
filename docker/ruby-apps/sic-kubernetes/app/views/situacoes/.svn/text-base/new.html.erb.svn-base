@@ -1,5 +1,0 @@
-<h1>New situacao</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', situacoes_path %>

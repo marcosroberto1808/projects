@@ -1,5 +1,0 @@
-<h1>New local_atuacao_processo</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', local_atuacao_processos_path %>
