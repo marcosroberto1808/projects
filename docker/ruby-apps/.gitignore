@@ -1,2 +1,2 @@
-# Ignore app-data folder auto-genereated by compose
-*-data*
+# Ignore all project folders auto-genereated by compose or git-cloned here.
+**/
