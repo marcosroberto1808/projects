@@ -1,2 +1,4 @@
-# Ignore database backup files
+# Put rules here
+
+# Backup files in all projects
 *.backup
