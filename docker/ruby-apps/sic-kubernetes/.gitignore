@@ -27,3 +27,6 @@ pids/*
 .idea/
 
 db/schema.rb
+
+# Ignore sic-data folder
+../sic-data
