@@ -1,9 +1,0 @@
-# database_dumps
-You can put database dumps in this folder.
-
-This folder will be mounted inside the container after start, 
-then, docker-compose exec will be used to restore this database dumps.
-
-Databases files can be:
-.sql        # common plain text sql files
-.backup     # binary custom dump files
