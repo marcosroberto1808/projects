@@ -1,1 +1,3 @@
 # Ignore backups and all project folders auto-genereated by compose or git-cloned here.
+**/
+!db_backups
